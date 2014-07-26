@@ -79,7 +79,7 @@ $session = $helper->getSession();
 $request = new FacebookRequest(
   $session,
   'GET',
-  '/me'
+  '/me/feed'
 );
 $response = $request->execute();
 $graphObject = $response->getGraphObject();
