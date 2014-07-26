@@ -32,8 +32,8 @@ session_start();
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
-$helper = new FacebookRedirectLoginHelper('login.php');
-$loginUrl = $helper->getLoginUrl();
+$helper = new FacebookRedirectLoginHelper('http://boiling-caverns-1628.herokuapp.com/index.php');
+$loginUrl = $helper->getLoginUrl( array( 'email', 'user_friends' ) );
 
 // Use the login url on a link or button to redirect to Facebook for authentication
 echo '<a href="' . $loginUrl . '">Login</a>';
