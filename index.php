@@ -74,7 +74,7 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
-    });
+    }, true);
   }
 
 
@@ -113,7 +113,7 @@ function testAPI() {
         FB.api('/me', function(response) {
           document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
-            
+
           document.getElementById('login_button_area').innerHTML = '';
         });
 
@@ -137,8 +137,11 @@ function testAPI() {
 
 
 <?php if ($helper->isLiked() === false) { ?>
-  <div class="fb-like" data-href="https://www.facebook.com/eat.drink.dress/" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
-<?php echo 'Click on above “Like” button to join this contest!'; 
+    <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Feat.drink.dress&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId=518851781580229" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;" allowTransparency="true"></iframe>
+<br />
+<?php 
+
+echo 'Click on above “Like” button to join this contest!';
 
 } else { 
 
