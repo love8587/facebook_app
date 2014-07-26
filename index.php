@@ -34,7 +34,7 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 
  
  
-$helper = new FacebookRedirectLoginHelper('http://dev.appcotech.com/fb_login/index.php');
+$helper = new FacebookRedirectLoginHelper('http://boiling-caverns-1628.herokuapp.com/');
  
 $session = $helper->getSessionFromRedirect();
  
