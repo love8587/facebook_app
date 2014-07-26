@@ -29,7 +29,7 @@ FacebookSession::setDefaultApplication('680605312014481','8f7df2bbfa7259bafe6ec9
 
 
 // login helper with redirect_uri
-$helper = new FacebookRedirectLoginHelper( 'https://boiling-caverns-1628.herokuapp.com/' );
+$helper = new FacebookRedirectLoginHelper( 'http://boiling-caverns-1628.herokuapp.com/' );
  
 try {
   $session = $helper->getSessionFromRedirect();
