@@ -34,23 +34,13 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 
 $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 
-$test = $helper->getPageId();
-var_dump($test);
-
-$test2 = $helper->isLiked();
-var_dump($test2);
-
-$test3 = $helper->isAdmin();
-var_dump($test3);
-
-
-
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Quiz App Test</title>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -149,7 +139,7 @@ $session = $helper->getSession();
 $request = new FacebookRequest(
   $session,
   'GET',
-  '/me/permissions'
+  '/me'
 );
 
 $response = $request->execute();
@@ -173,6 +163,14 @@ $sToken = $request->execute();
 <div id="status">
 </div>
 
+<script type="text/javascript">
+$(document).ready(function(){
+  
+  alert(1);
+  checkLoginState();
 
+});  
+
+</script>
 </body>
 </html>
