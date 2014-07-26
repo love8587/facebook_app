@@ -113,6 +113,8 @@ function testAPI() {
         FB.api('/me', function(response) {
           document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
+            
+          document.getElementById('login_button_area').innerHTML = '';
         });
 
       },
@@ -158,8 +160,11 @@ print_r($graphObject);
 echo "</pre>";
 ?>
 
-<fb:login-button scope="public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions" onlogin="checkLoginState();">
-</fb:login-button>
+<div id="login_button_area">
+    <fb:login-button scope="public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions" onlogin="checkLoginState();">
+    Request Permission
+    </fb:login-button>
+</div>
 
 <?php
 
