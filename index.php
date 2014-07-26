@@ -6,51 +6,45 @@ require_once('autoload.php');
 
 
 session_start();
-require_once( 'Facebook/FacebookSession.php' );
-require_once( 'Facebook/FacebookRedirectLoginHelper.php' );
-require_once( 'Facebook/FacebookRequest.php' );
-require_once( 'Facebook/FacebookResponse.php' );
-require_once( 'Facebook/FacebookSDKException.php' );
-require_once( 'Facebook/FacebookRequestException.php' );
-require_once( 'Facebook/FacebookAuthorizationException.php' );
-require_once( 'Facebook/GraphObject.php' );
+
+
+
 
 use Facebook\FacebookSession;
-use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookRequest;
-use Facebook\FacebookResponse;
-use Facebook\FacebookSDKException;
+use Facebook\GraphUser;
 use Facebook\FacebookRequestException;
-use Facebook\FacebookAuthorizationException;
-use Facebook\GraphObject;
 
-// init app with app id (APPID) and secret (SECRET)
 FacebookSession::setDefaultApplication('680605312014481','8f7df2bbfa7259bafe6ec9443f054776');
 
-// login helper with redirect_uri
-$helper = new FacebookRedirectLoginHelper( 'http://www.metah.ch/' );
+// Use one of the helper classes to get a FacebookSession object.
+//   FacebookRedirectLoginHelper
+//   FacebookCanvasLoginHelper
+//   FacebookJavaScriptLoginHelper
+// or create a FacebookSession with a valid access token:
+$session = new FacebookSession('83536eb622aa5a7038ef61199ccae1df');
+
+var_dump($session);
+// Get the GraphUser object for the current user:
 
 try {
-  $session = $helper->getSessionFromRedirect();
-} catch( FacebookRequestException $ex ) {
-  // When Facebook returns an error
-} catch( Exception $ex ) {
-  // When validation fails or other local issues
-}
+  $me = (new FacebookRequest(
+    $session, 'GET', '/me'
+  ))->execute()->getGraphObject(GraphUser::className());
+  
+  var_dump($me);
 
-// see if we have a session
-if ( isset( $session ) ) {
-  // graph api request for user data
-  $request = new FacebookRequest( $session, 'GET', '/me' );
-  $response = $request->execute();
-  // get response
-  $graphObject = $response->getGraphObject();
+  echo $me->getName();
+} catch (FacebookRequestException $e) {
+  // The Graph API returned an error
 
-  // print data
-  echo  print_r( $graphObject, 1 );
-} else {
-  // show login url
-  echo '<a href="' . $helper->getLoginUrl() . '">Login</a>';
+  echo 1;
+
+} catch (\Exception $e) {
+  // Some other error occurred
+echo $e->getMessage();
+
+
 }
 
 
