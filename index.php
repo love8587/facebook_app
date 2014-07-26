@@ -151,7 +151,7 @@ echo "</pre>";
 } ?>
 
 
-<fb:login-button scope="public_profile,email,user_likes,user_friends,user_interests,user_videos,publish_stream.publish_actions" onlogin="checkLoginState();">
+<fb:login-button scope="public_profile,email,user_likes,user_friends,user_interests,user_videos,user_actions.books,publish_actions" onlogin="checkLoginState();">
 </fb:login-button>
 
 <div id="status">
