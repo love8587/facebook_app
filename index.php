@@ -62,36 +62,7 @@ else{
 <body>
 
 <div id="fb-root"></div>
-<script>
-
-
-var page_like_or_unlike_callback = function(url, html_element) {
-  console.log("page_like_or_unlike_callback");
-  console.log(url);
-  console.log(html_element);
-}
-
-var test1 = function() {
-  alert(1);
-}
-
-var test2 = function() {
-  alert(2);
-}
-
-// In your onload handler
-FB.Event.subscribe(test1, page_like_or_unlike_callback);
-FB.Event.subscribe(test2, page_like_or_unlike_callback);
-
-
-
-
-
-
-
-
-
-(function(d, s, id) {
+<script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
