@@ -30,7 +30,7 @@ session_start();
  
 // init app with app id and secret
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
-FacebookSession::setDefaultApplication('680605312014481','8f7df2bbfa7259bafe6ec9443f054776');
+FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
 
 $helper = new FacebookCanvasLoginHelper();
