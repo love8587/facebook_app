@@ -159,20 +159,17 @@ session_start();
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
  
- 
-$helper = new FacebookRedirectLoginHelper('http://boiling-caverns-1628.herokuapp.com/');
- 
-$session = $helper->getSessionFromRedirect();
- 
-if($session != NULL){
-    echo "Logged In !<br>";
-    $request = new FacebookRequest($session, 'GET', '/me');
-    $response = $request->execute();
-    $graph = $response->getGraphObject(GraphUser::className());
-    echo $graph->getName();
+$helper = new FacebookJavaScriptLoginHelper();
+try {
+  $session = $helper->getSession();
+} catch(FacebookRequestException $ex) {
+  // When Facebook returns an error
+} catch(\Exception $ex) {
+  // When validation fails or other local issues
 }
-else{
-    echo '<a href="' . $helper->getLoginUrl() . '">Login</a>';
+if ($session) {
+  // Logged in
+  echo 3;
 }
 
 
