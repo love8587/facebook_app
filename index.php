@@ -74,7 +74,6 @@ var_dump($test3);
 
 $session = $helper->getSession();
 
-var_dump($session);
 
   /* make the API call */
 $request = new FacebookRequest(
@@ -85,6 +84,8 @@ $request = new FacebookRequest(
 $response = $request->execute();
 $graphObject = $response->getGraphObject();
 /* handle the result */
+
+print_r($graphObject);
 
 
 } ?>
