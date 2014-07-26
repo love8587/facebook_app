@@ -32,19 +32,21 @@ session_start();
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
-
-$helper = new FacebookCanvasLoginHelper();
-try {
-  $session = $helper->getSession();
-
-} catch (FacebookRequestException $ex) {
-    // When Facebook returns an error
-} catch (\Exception $ex) {
-    // When validation fails or other local issues  
+ 
+ 
+$helper = new FacebookRedirectLoginHelper('http://dev.appcotech.com/fb_login/index.php');
+ 
+$session = $helper->getSessionFromRedirect();
+ 
+if($session != NULL){
+    echo "Logged In !<br>";
+    $request = new FacebookRequest($session, 'GET', '/me');
+    $response = $request->execute();
+    $graph = $response->getGraphObject(GraphUser::className());
+    echo $graph->getName();
 }
-if ($session) {
-  echo 'login';
-  // Logged in.
+else{
+    echo '<a href="' . $helper->getLoginUrl() . '">Login</a>';
 }
 
 ?>
