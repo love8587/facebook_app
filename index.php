@@ -60,7 +60,20 @@ var_dump($test3);
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=518851781580229&version=v2.0";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+
+FB.login(
+  function(response) {
+    console.log(response);
+  },
+  {
+    scope: 'user_likes',
+    auth_type: 'rerequest'
+  }
+);
+
+
+</script>
 
 
 <h2> Hello ! Welcome my fan page! </h2>
@@ -79,7 +92,7 @@ $session = $helper->getSession();
 $request = new FacebookRequest(
   $session,
   'GET',
-  '/me/feed'
+  '/me'
 );
 $response = $request->execute();
 $graphObject = $response->getGraphObject();
