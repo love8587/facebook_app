@@ -74,7 +74,7 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
-    }, true);
+    });
   }
 
 
