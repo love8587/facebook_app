@@ -22,35 +22,32 @@ FacebookSession::setDefaultApplication('680605312014481','8f7df2bbfa7259bafe6ec9
 //   FacebookCanvasLoginHelper
 //   FacebookJavaScriptLoginHelper
 // or create a FacebookSession with a valid access token:
-$session = new FacebookSession('83536eb622aa5a7038ef61199ccae1df');
 
-var_dump($session);
-// Get the GraphUser object for the current user:
 
+// If you're making app-level requests:
+$session = FacebookSession::newAppSession();
+
+
+
+// To validate the session:
 try {
-  $me = (new FacebookRequest(
-    $session, 'GET', '/me'
-  ))->execute()->getGraphObject(GraphUser::className());
-  
-  var_dump($me);
-
-  echo $me->getName();
-} catch (FacebookRequestException $e) {
-  // The Graph API returned an error
-
-  echo 1;
-
-} catch (\Exception $e) {
-  // Some other error occurred
-echo $e->getMessage();
-
-
+  $session->validate();
+} catch (FacebookRequestException $ex) {
+  // Session not valid, Graph API returned an exception with the reason.
+  echo $ex->getMessage();
+} catch (\Exception $ex) {
+  // Graph API returned info, but it may mismatch the current app or have expired.
+  echo $ex->getMessage();
 }
 
 
+$request = new FacebookRequest($session, 'GET', '/me');
+$response = $request->execute();
+$graphObject = $response->getGraphObject();
 
+$user = $response->getGraphObject(GraphUser::className());
 
-
+var_dump($user);
 
 
 
