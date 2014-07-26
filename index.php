@@ -97,12 +97,6 @@ var_dump($test3);
 
 
 
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  
-
 
 
 (function(d, s, id) {
