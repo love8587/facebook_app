@@ -44,6 +44,9 @@ $test3 = $helper->isAdmin();
 var_dump($test3);
 
 
+if ($helper->isLiked() === false) {
+  echo 'Click on above “Like” button to join this contest!';
+} 
 
 
 
