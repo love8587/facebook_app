@@ -85,8 +85,9 @@ $response = $request->execute();
 $graphObject = $response->getGraphObject();
 /* handle the result */
 
+echo "<pre>";
 print_r($graphObject);
-
+echo "</pre>";
 
 } ?>
 
