@@ -58,7 +58,7 @@ var_dump($test3);
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=518851781580229&version=v2.0&fb_ref=top_left&fb_source=profile_oneline";
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=518851781580229&version=v2.0";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
@@ -68,10 +68,26 @@ var_dump($test3);
 
 <?php if ($helper->isLiked() === false) { ?>
   <div class="fb-like" data-href="https://www.facebook.com/eat.drink.dress/" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
-<?php echo 'Click on above “Like” button to join this contest!'; } 
+<?php echo 'Click on above “Like” button to join this contest!'; 
+
+} else { 
+
+$session = $helper->getSession();
+
+var_dump($session);
+
+  /* make the API call */
+$request = new FacebookRequest(
+  $session,
+  'GET',
+  '/me'
+);
+$response = $request->execute();
+$graphObject = $response->getGraphObject();
+/* handle the result */
 
 
-?>
+} ?>
 
 </body>
 </html>
