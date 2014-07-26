@@ -101,7 +101,7 @@ var_dump($test3);
     statusChangeCallback(response);
   });
 
-  };
+  
 
 
 
