@@ -101,30 +101,37 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
-  console.log('Welcome!  Fetching your information.... ');
+  
+  // console.log('Welcome!  Fetching your information.... ');
 
-FB.login(
-  function(response) {
-    console.log(response);
-  },
-  {
-    scope: 'public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions',
-    auth_type: 'rerequest'
-  }
-);
 
-  FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
-  });
+    FB.login(
+      function(response) {
+        // console.log(response);
+        // console.log('Successful login for: ' + response.name);
+  
+        FB.api('/me', function(response) {
+          document.getElementById('status').innerHTML =
+            'Thanks for logging in, ' + response.name + '!';
+        });
+
+      },
+      {
+        scope: 'public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions',
+        auth_type: 'rerequest'
+      }
+    );
+
+
+    
+
 }
 
 
 </script>
 
 
-<h2> Hello ! Welcome my fan page! </h2>
+<h2> Welcome! my Quiz Quiz page! </h2>
 
 
 <?php if ($helper->isLiked() === false) { ?>
@@ -149,25 +156,25 @@ $graphObject = $response->getGraphObject();
 echo "<pre>";
 print_r($graphObject);
 echo "</pre>";
+?>
 
+<fb:login-button scope="public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions" onlogin="checkLoginState();">
+</fb:login-button>
 
-$sToken = $request->execute();
-
+<?php
 
 } ?>
 
 
-<fb:login-button scope="public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions" onlogin="checkLoginState();">
-</fb:login-button>
 
 <div id="status">
 </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-  
-  alert(1);
-  checkLoginState();
+
+$(document).ready(function() {
+
+// empty
 
 });  
 
