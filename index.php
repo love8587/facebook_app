@@ -111,6 +111,17 @@ var_dump($test3);
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
   console.log('Welcome!  Fetching your information.... ');
+
+FB.login(
+  function(response) {
+    console.log(response);
+  },
+  {
+    scope: 'public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions',
+    auth_type: 'rerequest'
+  }
+);
+
   FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);
     document.getElementById('status').innerHTML =
