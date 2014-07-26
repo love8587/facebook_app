@@ -60,6 +60,48 @@ else{
 <meta charset="UTF-8">
 </head>
 <body>
+
+<div id="fb-root"></div>
+<script>
+
+
+var page_like_or_unlike_callback = function(url, html_element) {
+  console.log("page_like_or_unlike_callback");
+  console.log(url);
+  console.log(html_element);
+}
+
+var test1 = function() {
+  alert(1);
+}
+
+var test2 = function() {
+  alert(2);
+}
+
+// In your onload handler
+FB.Event.subscribe(test1, page_like_or_unlike_callback);
+FB.Event.subscribe(test2, page_like_or_unlike_callback);
+
+
+
+
+
+
+
+
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=518851781580229&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div class="fb-like-box" data-href="https://www.facebook.com/eat.drink.dress" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="true"></div>
+
 <script>
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
