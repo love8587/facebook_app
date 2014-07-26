@@ -44,11 +44,41 @@ $test3 = $helper->isAdmin();
 var_dump($test3);
 
 
+
+?>
+
+
+<<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=518851781580229&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+Hello ! Welcome my fan page! 
+
+<?php
+
 if ($helper->isLiked() === false) {
+?>
+
+<div class="fb-like" data-href="https://www.facebook.com/eat.drink.dress/" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+
+<?php  
   echo 'Click on above “Like” button to join this contest!';
 } 
 
 
-
 ?>
 
+</body>
+</html>
