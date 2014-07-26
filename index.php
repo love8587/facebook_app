@@ -149,7 +149,7 @@ $session = $helper->getSession();
 $request = new FacebookRequest(
   $session,
   'GET',
-  '/me'
+  '/me/permissions'
 );
 
 $response = $request->execute();
@@ -159,6 +159,10 @@ $graphObject = $response->getGraphObject();
 echo "<pre>";
 print_r($graphObject);
 echo "</pre>";
+
+
+$sToken = $request->execute();
+
 
 } ?>
 
