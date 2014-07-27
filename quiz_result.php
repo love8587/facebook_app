@@ -30,16 +30,16 @@ session_start();
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
-$helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
+$helper = new FacebookRedirectLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 
 $session = $helper->getSession();
 
 
-var_dump($_SERVER);
 
 echo '<pre>';
 print_r($helper);
 echo '</pre>';
+
 
 if ($session != null) {
 	/* make the API call */
