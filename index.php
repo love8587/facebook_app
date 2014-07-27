@@ -287,6 +287,22 @@ $(document).ready(function() {
           alert(response.name);
         });
 
+        FB.api(
+          "/me/feed",
+          "POST",
+          {
+              "object": {
+                  "message": "This is a test message"
+              }
+          },
+          function (response) {
+            if (response && !response.error) {
+              /* handle the result */
+              console.log(response);
+            }
+          }
+        );    
+
     });
 
 
