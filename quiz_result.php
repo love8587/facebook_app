@@ -31,12 +31,9 @@ session_start();
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
 
-$signedRequest = new SignedRequest($rawSignedRequest, $this->state, $this->appSecret);
+$signedRequest = new SignedRequest($_GET['row_signed_request'], null, '4284499c6fb57d117268cd20931f0ff5');
 
-
-var_dump($test1);
-
-$session = new FacebookSession($_GET['access_token']);
+$session = new FacebookSession($_GET['access_token'], $signedRequest);
 
 var_dump($session);
 
