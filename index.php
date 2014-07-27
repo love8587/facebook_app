@@ -250,6 +250,7 @@ echo "</pre>";
 </form>
 
 </div>
+  <button id="publishBtn">Click me to publish a "Hello, World!" post to Facebook.</button>
 
 
 
@@ -323,7 +324,6 @@ $(document).ready(function() {
 
 </script>
 
-  <button id="publishBtn">Click me to publish a "Hello, World!" post to Facebook.</button>
 
 
 </body>
