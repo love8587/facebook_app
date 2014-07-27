@@ -240,7 +240,7 @@ echo "</pre>";
       <input type="radio" name="quiz5_answer" id="quiz5_select_3" value="option3"> 3
     </label>
   </div>
-  <input type="hidden" name="access_token" value="">
+  <input type="hidden" name="access_token" <?php echo 'value="'. $_SESSION['access_token'] .'"' ?>>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
