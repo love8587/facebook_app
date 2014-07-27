@@ -291,8 +291,7 @@ $(document).ready(function() {
           {
               "object": {
                   "message": "This is a test message",
-                  "link": "https://www.facebook.com/eat.drink.dress/app_518851781580229",
-                  "actions": {"name": "test", "link": "https://www.facebook.com/"}
+                  "link": "https://www.facebook.com/eat.drink.dress/app_518851781580229"
               }
           },
           function (response) {
