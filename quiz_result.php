@@ -30,11 +30,13 @@ session_start();
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
+$test1 = FacebookSession::newAppSession('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
-echo '<pre>';
-print_r($_GET);
-echo '</pre>';
+var_dump($test1);
 
+$session = new FacebookSession($_GET['access_token']);
+
+var_dump($session);
 
 
 if ($session != null) {
