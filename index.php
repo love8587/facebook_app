@@ -279,7 +279,7 @@ $(document).ready(function() {
    
     // Put the results in a div
     posting.done(function( data ) {
-      location.href="quiz_result.php";
+      location.href="/quiz_result.php";
     });
 
 
