@@ -145,6 +145,12 @@ function testAPI() {
 <?php 
 } else { 
 
+
+echo '<pre>';
+print_r($helper);
+echo '</pre>';
+
+
 $session = $helper->getSession();
 
 var_dump($session);
