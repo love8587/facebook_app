@@ -315,14 +315,13 @@ $(document).ready(function() {
 
 
 
-
-document.getElementById('publishBtn').onclick = function() {
+$('#publishBtn').Click(function() {
   FB.api('/me/feed', 'post', {message: 'Hello, world!'}, function(response) {
-    Log.info('API response', response);
-    document.getElementById('publishBtn').innerHTML = 'API response is ' + response.id;
+      Log.info('API response', response);
+      document.getElementById('publishBtn').innerHTML = 'API response is ' + response.id;
   });
   return false;
-}  
+});
 
 
 </script>
