@@ -158,8 +158,9 @@ $response = $request->execute();
 $graphObject = $response->getGraphObject();
 /* handle the result */
 
+var_dump($session->getToken());
 echo "<pre>";
-print_r($session->getAccessToken());
+print_r($session->getAccessToken()->__toString());
 print_r($graphObject);
 echo "</pre>";
 ?>
