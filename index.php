@@ -159,6 +159,7 @@ $graphObject = $response->getGraphObject();
 /* handle the result */
 
 echo "<pre>";
+print_r($session);
 print_r($graphObject);
 echo "</pre>";
 ?>
