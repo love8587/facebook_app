@@ -1,8 +1,7 @@
 <?php
 
 
-var_dump($_POST);
-
+echo "your Score is 40";
 
 
 ?>
