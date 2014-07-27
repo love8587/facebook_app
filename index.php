@@ -47,6 +47,7 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 <body>
 <div id="fb-root"></div>
 <script>
+var sToken;
 
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
@@ -59,7 +60,11 @@ function statusChangeCallback(response) {
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
     //console.log(response.authResponse.accessToken);
+
+    sToken = response.authResponse.accessToken;
+
     testAPI();
+
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
     document.getElementById('status').innerHTML = 'Please log ' +
@@ -316,11 +321,14 @@ $(document).ready(function() {
 
 
 $('#publishBtn').Click(function() {
-  FB.api('/me/feed', 'post', {message: 'Hello, world!'}, function(response) {
-      Log.info('API response', response);
-      document.getElementById('publishBtn').innerHTML = 'API response is ' + response.id;
-  });
-  return false;
+  
+
+    var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST&message=asdfsd&format=json&suppress_http_code=1&access_token=CAAHX5Jgh1cUBAPVWjyyCybyQ3NbdrUmvyekKbtdesdAYc28lUjxG3KevkfsaZAKuYIXpOAirsYxEvMQXi3YT39DLqUlxLcIV11ZCqVpuiSwgOHNVYd3bIoz1ZBafpCZChZAsQUuLQPO3F6GlsvrVDC9NoLMtCkYZBhEri823AiYhUclAcBHnfAeIjZBmgXECWTxDqcofRyOdGffnxq83DqbBArPNHL44MEZD';
+
+    // Send the data using post
+    var posting = $.post( url, $( "#quiz_form" ).serialize() );
+   
+
 });
 
 
