@@ -111,6 +111,7 @@ function testAPI() {
             'Thanks for logging in, ' + response.name + '!';
 
           document.getElementById('login_button_area').innerHTML = '';
+          $('#quiz_body').show();
         });
 
       },
@@ -173,7 +174,7 @@ echo "</pre>";
 
 <div id="status"> </div>
 
-<div id="quiz_body">
+<div id="quiz_body" style="display:none">
 
 <form id="quiz_form" role="form">
   <div class="form-group">
@@ -255,9 +256,10 @@ $(document).ready(function() {
     // Stop form from submitting normally
     event.preventDefault();
 
-    // set Element for Validation
+    // Set Element for Validation
     var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
 
+    // Validate Element
     $.each(aValidateElementName, function(index, elem) {
       var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
       
