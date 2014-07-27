@@ -289,42 +289,32 @@ $(document).ready(function() {
     // Put the results in a div
     posting.done(function( data ) {
       // location.href="/quiz_result.php?access_token=" + $('#access_token').val();
-      
-      alert(data)
 
+      alert('your Score is 40');
+
+      FB.api('/me', function(response) {
+        
+        var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST';
+        url += '&message='+response.name+'%20has%20participated%20in%20the%20contest!%20Hyperlink%20to%20this%20app.%20!%20%0A%0AJoin%20this%20contest%20and%20stand%20to%20win%20attractive%20prizes.&link=https://www.facebook.com/eat.drink.dress/app_518851781580229&format=json&suppress_http_code=1';
+        url += '&access_token=' + sToken;
+        
+        // Send the data using post
+        var publishing = $.post( url, {} );
+
+        // Put the results in a div
+        publishing.done(function( data ) {
+            alert('published post');
+        });
+
+      });
 
     });
 
    
   });
 
-
-  $('#publishBtn').click(function() {
-
-        FB.api('/me', function(response) {
-          
-          var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST';
-          url += '&message='+response.name+'%20has%20participated%20in%20the%20contest!%20Hyperlink%20to%20this%20app.%20!%20%0A%0AJoin%20this%20contest%20and%20stand%20to%20win%20attractive%20prizes.&link=https://www.facebook.com/eat.drink.dress/app_518851781580229&format=json&suppress_http_code=1';
-          url += '&access_token=' + sToken;
-          
-          // Send the data using post
-          var publishing = $.post( url, {} );
-
-          // Put the results in a div
-          publishing.done(function( data ) {
-              alert('published post');
-          });
-
-        });
-
-  });
-
-
 });  
 
 </script>
-
-
-
 </body>
 </html>
