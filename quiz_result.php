@@ -36,6 +36,7 @@ print_r($_SESSION);
 echo '</pre>';
 
 
+
 if ($session != null) {
 	/* make the API call */
 	$request = new FacebookRequest(

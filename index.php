@@ -240,7 +240,7 @@ echo "</pre>";
       <input type="radio" name="quiz5_answer" id="quiz5_select_3" value="option3"> 3
     </label>
   </div>
-  <input type="hidden" name="access_token" <?php echo 'value="'. $_SESSION['access_token'] .'"' ?>>
+  <input type="hidden" id="access_token" name="access_token" <?php echo 'value="'. $_SESSION['access_token'] .'"' ?>>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
@@ -282,7 +282,7 @@ $(document).ready(function() {
    
     // Put the results in a div
     posting.done(function( data ) {
-      location.href="/quiz_result.php";
+      location.href="/quiz_result.php?access_token=" + $('#access_token').val() ;
     });
 
 
