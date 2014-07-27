@@ -177,7 +177,7 @@ echo "</pre>";
 
 <div id="quiz_body" style="display:">
 
-<form id="quiz_form" role="form" action="quiz_result.php">
+<form id="quiz_form" role="form" action="quiz_complete.php">
   <div class="form-group">
     <label class="form-control"> This is Quiz 1</label>
     <label class="radio-inline">
