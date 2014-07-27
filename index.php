@@ -145,30 +145,22 @@ function testAPI() {
 <?php 
 } else { 
 
-
-echo '<pre>';
-print_r($helper);
-echo '</pre>';
-
-
 $session = $helper->getSession();
 
-var_dump($session);
+/* make the API call */
+$request = new FacebookRequest(
+  $session,
+  'GET',
+  '/me'
+);
 
-// /* make the API call */
-// $request = new FacebookRequest(
-//   $session,
-//   'GET',
-//   '/me'
-// );
+$response = $request->execute();
+$graphObject = $response->getGraphObject();
+/* handle the result */
 
-// $response = $request->execute();
-// $graphObject = $response->getGraphObject();
-// /* handle the result */
-
-// echo "<pre>";
-// print_r($graphObject);
-// echo "</pre>";
+echo "<pre>";
+print_r($graphObject);
+echo "</pre>";
 ?>
 
 <div id="login_button_area">
