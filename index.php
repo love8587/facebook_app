@@ -177,7 +177,7 @@ echo "</pre>";
 
 <div id="status"> </div>
 
-<div id="quiz_body" style="display:">
+<div id="quiz_body" style="display:none">
 
 <form id="quiz_form" role="form" action="quiz_complete.php">
   <div class="form-group">
@@ -282,7 +282,11 @@ $(document).ready(function() {
    
     // Put the results in a div
     posting.done(function( data ) {
-      location.href="/quiz_result.php?access_token=" + $('#access_token').val();
+      // location.href="/quiz_result.php?access_token=" + $('#access_token').val();
+        FB.api('/me', function(response) {
+          alert(response.name);
+        });
+
     });
 
 
