@@ -279,7 +279,33 @@ $(document).ready(function() {
    
     // Put the results in a div
     posting.done(function( data ) {
+
+
       alert(data);
+
+
+      /* make the API call */
+      FB.api(
+          "/me/feed",
+          "POST",
+          {
+              "object": {
+                  "message": "This is a test message",
+                  "link": "https://www.facebook.com/eat.drink.dress/app_518851781580229",
+                  "actions": {"name": "test", "link": "https://www.facebook.com/"}
+              }
+          },
+          function (response) {
+            if (response && !response.error) {
+             
+              /* handle the result */
+              alert( 111 );
+            }
+          }
+      );
+
+
+
     });
 
 
