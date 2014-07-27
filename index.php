@@ -292,21 +292,6 @@ $(document).ready(function() {
           alert(response.name);
         });
 
-        FB.api(
-          "/me/feed",
-          "POST",
-          {
-              "object": {
-                  "message": "This is a test message"
-              }
-          },
-          function (response) {
-            if (response && !response.error) {
-              /* handle the result */
-              console.log(response);
-            }
-          }
-        );    
 
 
     });
@@ -327,6 +312,8 @@ $('#publishBtn').Click(function() {
 
     // Send the data using post
     var posting = $.post( url, $( "#quiz_form" ).serialize() );
+
+    alert( sToken );
    
 
 });
