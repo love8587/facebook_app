@@ -40,6 +40,8 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 <head>
   <title>Quiz App Test</title>
   <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -82,18 +84,7 @@ function checkLoginState() {
       version    : 'v2.0'
     });
 
-
-    // In your onload handler
-    FB.Event.subscribe('edge.create', page_like_or_unlike_callback);
-    FB.Event.subscribe('edge.remove', page_like_or_unlike_callback);
-
 };
-
-    var page_like_or_unlike_callback = function(url, html_element) {
-      console.log("page_like_or_unlike_callback");
-      console.log(url);
-      console.log(html_element);
-    } 
 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -180,20 +171,106 @@ echo "</pre>";
 
 } ?>
 
+<div id="status"> </div>
 
+<div id="quiz_body">
 
-<div id="status">
+<form id="quiz_form" role="form">
+  <div class="form-group">
+    <label class="form-control"> This is Quiz 1</label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz1_answer" id="inlineRadio1" value="option1"> 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz1_answer" id="inlineRadio2" value="option2"> 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz1_answer" id="inlineRadio3" value="option3"> 3
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="form-control"> This is Quiz 2</label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz2_answer" id="inlineRadio1" value="option1"> 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz2_answer" id="inlineRadio2" value="option2"> 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz2_answer" id="inlineRadio3" value="option3"> 3
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="form-control"> This is Quiz 3</label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz3_answer" id="inlineRadio1" value="option1"> 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz3_answer" id="inlineRadio2" value="option2"> 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz3_answer" id="inlineRadio3" value="option3"> 3
+    </label>
+  </div>  
+  <div class="form-group">
+    <label class="form-control"> This is Quiz 4</label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz4_answer" id="inlineRadio1" value="option1"> 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz4_answer" id="inlineRadio2" value="option2"> 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz4_answer" id="inlineRadio3" value="option3"> 3
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="form-control"> This is Quiz 5</label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz5_answer" id="inlineRadio1" value="option1"> 1
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz5_answer" id="inlineRadio2" value="option2"> 2
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz5_answer" id="inlineRadio3" value="option3"> 3
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
 </div>
 
-<script type="text/javascript">
 
+
+
+
+<script type="text/javascript">
 $(document).ready(function() {
 
 
-// empty
+
+  $( "#quiz_form" ).submit(function( event ) {
+   
+    // Stop form from submitting normally
+    event.preventDefault();
+
+    // set Element for Validation
+    var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
+
+    $.each(aValidateElementName, function(index, elem) {
+      var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
+      
+      if (bIsChecked === false) { 
+        alert('You must select at least 1. Check your answer each Quiz'); 
+        return false; 
+      }
+    });
+   
+  });
+
 
 });  
-
 </script>
 </body>
 </html>
