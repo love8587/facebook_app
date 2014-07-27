@@ -158,9 +158,9 @@ $response = $request->execute();
 $graphObject = $response->getGraphObject();
 /* handle the result */
 
-var_dump($session->getToken());
+$_SESSION['access_token'] = $session->getToken();
+
 echo "<pre>";
-print_r($session->getAccessToken()->__toString());
 print_r($graphObject);
 echo "</pre>";
 ?>
@@ -240,6 +240,7 @@ echo "</pre>";
       <input type="radio" name="quiz5_answer" id="quiz5_select_3" value="option3"> 3
     </label>
   </div>
+  <input type="hidden" name="access_token" value="">
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
