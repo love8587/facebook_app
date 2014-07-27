@@ -290,8 +290,7 @@ $(document).ready(function() {
           "POST",
           {
               "object": {
-                  "message": "This is a test message",
-                  "link": "https://www.facebook.com/eat.drink.dress/app_518851781580229"
+                  "message": "This is a test message"
               }
           },
           function (response) {
