@@ -159,6 +159,7 @@ $graphObject = $response->getGraphObject();
 /* handle the result */
 
 $_SESSION['access_token'] = $session->getToken();
+$_SESSION['row_signed_request'] = $session->getRawSignedRequest();
 
 echo "<pre>";
 print_r($graphObject);
@@ -241,6 +242,7 @@ echo "</pre>";
     </label>
   </div>
   <input type="hidden" id="access_token" name="access_token" <?php echo 'value="'. $_SESSION['access_token'] .'"' ?>>
+  <input type="hidden" id="row_signed_request" name="access_token" <?php echo 'value="'. $_SESSION['row_signed_request'] .'"' ?>>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
@@ -282,7 +284,7 @@ $(document).ready(function() {
    
     // Put the results in a div
     posting.done(function( data ) {
-      location.href="/quiz_result.php?access_token=" + $('#access_token').val() ;
+      location.href="/quiz_result.php?access_token=" + $('#access_token').val() + "&row_signed_request=" + $('#row_signed_request').val();
     });
 
 
