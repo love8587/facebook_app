@@ -32,9 +32,6 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 
 $session = new FacebookSession($_GET['access_token'], $signedRequest);
 
-var_dump($session);
-
-
 
 if ($session != null) {
 	/* make the API call */
