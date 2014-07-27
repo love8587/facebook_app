@@ -299,7 +299,7 @@ $(document).ready(function() {
   });
 
 
-  $('#publishBtn').Click(function() {
+  $('#publishBtn').click(function() {
 
         FB.api('/me', function(response) {
           
