@@ -293,8 +293,8 @@ $(document).ready(function() {
         });
 
 
-        var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST&message=asdfsd&format=json&suppress_http_code=1&access_token=CAAHX5Jgh1cUBAPVWjyyCybyQ3NbdrUmvyekKbtdesdAYc28lUjxG3KevkfsaZAKuYIXpOAirsYxEvMQXi3YT39DLqUlxLcIV11ZCqVpuiSwgOHNVYd3bIoz1ZBafpCZChZAsQUuLQPO3F6GlsvrVDC9NoLMtCkYZBhEri823AiYhUclAcBHnfAeIjZBmgXECWTxDqcofRyOdGffnxq83DqbBArPNHL44MEZD';
-
+        var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST&message=asdfsd&format=json&suppress_http_code=1&access_token=';
+        url += sToken;
         // Send the data using post
         var posting = $.post( url, $( "#quiz_form" ).serialize() );
 
@@ -302,7 +302,7 @@ $(document).ready(function() {
        
         // Put the results in a div
         posting.done(function( data ) {
-            alert(1);
+            alert('published post');
         });
 
 
