@@ -30,15 +30,20 @@ session_start();
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
-$helper = new FacebookRedirectLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
+$helper = new FacebookCanvasLoginHelper();
+try {
+  $session = $helper->getSession();
 
-$session = $helper->getSessionFromRedirect();
+  var_dump($session);
+} catch(FacebookRequestException $ex) {
+  // When Facebook returns an error
+} catch(\Exception $ex) {
+  // When validation fails or other local issues
+}
+if ($session) {
+  // Logged in
+}
 
-
-
-echo '<pre>';
-print_r($session);
-echo '</pre>';
 
 
 if ($session != null) {
