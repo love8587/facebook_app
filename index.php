@@ -139,7 +139,7 @@ function testAPI() {
     <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Feat.drink.dress&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId=518851781580229" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;" allowTransparency="true"></iframe>
     -->
 <br />
-
+  
 <h5> Click on above "Like" button to join this contest! </h5>
 
 <?php 
@@ -147,20 +147,22 @@ function testAPI() {
 
 $session = $helper->getSession();
 
-/* make the API call */
-$request = new FacebookRequest(
-  $session,
-  'GET',
-  '/me'
-);
+var_dump($session);
 
-$response = $request->execute();
-$graphObject = $response->getGraphObject();
-/* handle the result */
+// /* make the API call */
+// $request = new FacebookRequest(
+//   $session,
+//   'GET',
+//   '/me'
+// );
 
-echo "<pre>";
-print_r($graphObject);
-echo "</pre>";
+// $response = $request->execute();
+// $graphObject = $response->getGraphObject();
+// /* handle the result */
+
+// echo "<pre>";
+// print_r($graphObject);
+// echo "</pre>";
 ?>
 
 <div id="login_button_area">
@@ -269,6 +271,23 @@ $(document).ready(function() {
         return false; 
       }
     });
+
+
+    // Get some values from elements on the page:
+    var $form = $( this ),
+    term = $form.find( "input[name='s']" ).val(),
+    url = $form.attr( "action" );
+   
+    // Send the data using post
+    var posting = $.post( url, { s: term } );
+   
+    // Put the results in a div
+    posting.done(function( data ) {
+      var content = $( data ).find( "#content" );
+      $( "#result" ).empty().append( content );
+    });
+
+
    
   });
 
