@@ -289,20 +289,17 @@ $(document).ready(function() {
     posting.done(function( data ) {
       // location.href="/quiz_result.php?access_token=" + $('#access_token').val();
         FB.api('/me', function(response) {
-          alert(response.name);
-        });
+          
+          var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST';
+          url += '&message='+response.name+'%20has%20participated%20in%20the%20contest!%20Hyperlink%20to%20this%20app.%20!%20%0A%0AJoin%20this%20contest%20and%20stand%20to%20win%20attractive%20prizes.&link=https://www.facebook.com/eat.drink.dress/app_518851781580229&format=json&suppress_http_code=1';
+          url += '&access_token=' + sToken;
+          // Send the data using post
+         
+          // Put the results in a div
+          posting.done(function( data ) {
+              alert('published post');
+          });
 
-
-        var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST&message=asdfsd&format=json&suppress_http_code=1&access_token=';
-        url += sToken;
-        // Send the data using post
-        var posting = $.post( url, $( "#quiz_form" ).serialize() );
-
-        alert( sToken );
-       
-        // Put the results in a div
-        posting.done(function( data ) {
-            alert('published post');
         });
 
 
