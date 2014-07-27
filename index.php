@@ -181,61 +181,61 @@ echo "</pre>";
   <div class="form-group">
     <label class="form-control"> This is Quiz 1</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="inlineRadio1" value="option1"> 1
+      <input type="radio" name="quiz1_answer" id="quiz1_select_1" value="option1"> 1
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="inlineRadio2" value="option2"> 2
+      <input type="radio" name="quiz1_answer" id="quiz1_select_2" value="option2"> 2
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="inlineRadio3" value="option3"> 3
+      <input type="radio" name="quiz1_answer" id="quiz1_select_3" value="option3"> 3
     </label>
   </div>
   <div class="form-group">
     <label class="form-control"> This is Quiz 2</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="inlineRadio1" value="option1"> 1
+      <input type="radio" name="quiz2_answer" id="quiz2_select_1" value="option1"> 1
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="inlineRadio2" value="option2"> 2
+      <input type="radio" name="quiz2_answer" id="quiz2_select_2" value="option2"> 2
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="inlineRadio3" value="option3"> 3
+      <input type="radio" name="quiz2_answer" id="quiz2_select_3" value="option3"> 3
     </label>
   </div>
   <div class="form-group">
     <label class="form-control"> This is Quiz 3</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="inlineRadio1" value="option1"> 1
+      <input type="radio" name="quiz3_answer" id="quiz3_select_1" value="option1"> 1
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="inlineRadio2" value="option2"> 2
+      <input type="radio" name="quiz3_answer" id="quiz3_select_2" value="option2"> 2
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="inlineRadio3" value="option3"> 3
+      <input type="radio" name="quiz3_answer" id="quiz3_select_3" value="option3"> 3
     </label>
   </div>  
   <div class="form-group">
     <label class="form-control"> This is Quiz 4</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="inlineRadio1" value="option1"> 1
+      <input type="radio" name="quiz4_answer" id="quiz4_select_1" value="option1"> 1
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="inlineRadio2" value="option2"> 2
+      <input type="radio" name="quiz4_answer" id="quiz4_select_2" value="option2"> 2
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="inlineRadio3" value="option3"> 3
+      <input type="radio" name="quiz4_answer" id="quiz4_select_3" value="option3"> 3
     </label>
   </div>
   <div class="form-group">
     <label class="form-control"> This is Quiz 5</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="inlineRadio1" value="option1"> 1
+      <input type="radio" name="quiz5_answer" id="quiz5_select_1" value="option1"> 1
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="inlineRadio2" value="option2"> 2
+      <input type="radio" name="quiz5_answer" id="quiz5_select_2" value="option2"> 2
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="inlineRadio3" value="option3"> 3
+      <input type="radio" name="quiz5_answer" id="quiz5_select_3" value="option3"> 3
     </label>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>
@@ -261,28 +261,24 @@ $(document).ready(function() {
     var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
 
     // Validate Element
-    $.each(aValidateElementName, function(index, elem) {
+    for (index in aValidateElementName) {
       var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
       
       if (bIsChecked === false) { 
         alert('You must select at least 1. Check your answer each Quiz'); 
         return false; 
       }
-    });
-
+    }
 
     // Get some values from elements on the page:
     var $form = $( this ),
-    term = $form.find( "input[name='s']" ).val(),
     url = $form.attr( "action" );
    
     // Send the data using post
-    var posting = $.post( url, { s: term } );
+    var posting = $.post( url, $( "#quiz_form" ).serialize() );
    
     // Put the results in a div
     posting.done(function( data ) {
-      var content = $( data ).find( "#content" );
-      $( "#result" ).empty().append( content );
       alert(data);
     });
 
