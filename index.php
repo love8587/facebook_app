@@ -83,17 +83,18 @@ function checkLoginState() {
     });
 
 
-    var page_like_or_unlike_callback = function(url, html_element) {
-      console.log("page_like_or_unlike_callback");
-      console.log(url);
-      console.log(html_element);
-    } 
     // In your onload handler
     FB.Event.subscribe('edge.create', page_like_or_unlike_callback);
     FB.Event.subscribe('edge.remove', page_like_or_unlike_callback);
 
 };
 
+    var page_like_or_unlike_callback = function(url, html_element) {
+      console.log("page_like_or_unlike_callback");
+      console.log(url);
+      console.log(html_element);
+    } 
+    
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
