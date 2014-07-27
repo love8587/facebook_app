@@ -250,7 +250,6 @@ echo "</pre>";
 </form>
 
 </div>
-  <button id="publishBtn">Click me to publish a "Hello, World!" post to Facebook.</button>
 
 
 
