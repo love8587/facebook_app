@@ -32,11 +32,12 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 
 $helper = new FacebookRedirectLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 
+$session = $helper->getSessionFromRedirect();
 
 
 
 echo '<pre>';
-print_r($helper);
+print_r($session);
 echo '</pre>';
 
 
