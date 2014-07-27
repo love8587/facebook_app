@@ -34,23 +34,28 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 
 $session = $helper->getSession();
 
+var_dump($session);
 
-/* make the API call */
-$request = new FacebookRequest(
-  $session,
-  'POST',
-  '/me/feed',
-  array (
-    'message' => 'This is a test message',
-  )
-);
-$response = $request->execute();
-$graphObject = $response->getGraphObject();
-/* handle the result */
+if ($session != null) {
+	/* make the API call */
+	$request = new FacebookRequest(
+	  $session,
+	  'POST',
+	  '/me/feed',
+	  array (
+	    'message' => 'This is a test message',
+	  )
+	);
+	$response = $request->execute();
+	$graphObject = $response->getGraphObject();
+	/* handle the result */
+
+	var_dump($graphObject);
+	
+} 
 
 
 
-var_dump($graphObject);
 
 
 
