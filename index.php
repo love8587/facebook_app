@@ -279,30 +279,7 @@ $(document).ready(function() {
    
     // Put the results in a div
     posting.done(function( data ) {
-
-
-
-
-      /* make the API call */
-      FB.api(
-          "/me/feed",
-          "POST",
-          {
-              "object": {
-                  "message": "This is a test message"
-              }
-          },
-          function (response) {
-            if (response && !response.error) {
-             
-              /* handle the result */
-              alert( 111 );
-            }
-          }
-      );
-
-
-
+      location.href="quiz_result.php";
     });
 
 
