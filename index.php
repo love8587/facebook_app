@@ -281,7 +281,6 @@ $(document).ready(function() {
     posting.done(function( data ) {
 
 
-      alert(data);
 
 
       /* make the API call */
