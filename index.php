@@ -94,7 +94,7 @@ function checkLoginState() {
       console.log(url);
       console.log(html_element);
     } 
-    
+
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -142,7 +142,9 @@ function testAPI() {
 
 
 <?php if ($helper->isLiked() === false) { ?>
+   <!--
     <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Feat.drink.dress&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId=518851781580229" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;" allowTransparency="true"></iframe>
+    -->
 <br />
 <?php 
 
