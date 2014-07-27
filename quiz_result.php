@@ -32,7 +32,7 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 
 
 echo '<pre>';
-print_r($_SESSION);
+print_r($_GET);
 echo '</pre>';
 
 
