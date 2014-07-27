@@ -76,12 +76,23 @@ function checkLoginState() {
 }
 
  window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '518851781580229',
-        xfbml      : true,
-        version    : 'v2.0'
-      });
-    };
+    FB.init({
+      appId      : '518851781580229',
+      xfbml      : true,
+      version    : 'v2.0'
+    });
+
+
+    var page_like_or_unlike_callback = function(url, html_element) {
+      console.log("page_like_or_unlike_callback");
+      console.log(url);
+      console.log(html_element);
+    } 
+    // In your onload handler
+    FB.Event.subscribe('edge.create', page_like_or_unlike_callback);
+    FB.Event.subscribe('edge.remove', page_like_or_unlike_callback);
+
+};
 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -174,6 +185,7 @@ echo "</pre>";
 <script type="text/javascript">
 
 $(document).ready(function() {
+
 
 // empty
 
