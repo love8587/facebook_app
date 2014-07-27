@@ -31,7 +31,9 @@ session_start();
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
 
-
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
 
 
 if ($session != null) {
