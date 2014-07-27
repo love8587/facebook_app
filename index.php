@@ -303,6 +303,7 @@ $(document).ready(function() {
           }
         );    
 
+
     });
 
 
@@ -311,6 +312,36 @@ $(document).ready(function() {
 
 
 });  
+
+
+
+
+document.getElementById('publishBtn').onclick = function() {
+  FB.api('/me/feed', 'post', {message: 'Hello, world!'}, function(response) {
+    Log.info('API response', response);
+    document.getElementById('publishBtn').innerHTML = 'API response is ' + response.id;
+  });
+  return false;
+}  
+
+
 </script>
+
+
+<h1>Publishing to the Graph API</h1>
+
+<p>Now we'll show you how you can use the JavaScript SDK to make a simple "Hello, world!" post on your Facebook profile.</p>
+
+<h2>Adding Publishing Permissions</h2>
+
+<p>First, we'll need the <code>publish_actions</code> permission to make this publishing request, so we'll insert a Login button which requests the correct permissions (click on this if you haven't already granted the permission):</p>
+
+
+<h2>Using FB.api()</h2>
+
+<div id="publishBtn" style="padding-top: 20px">Click me to publish a "Hello, World!" post to Facebook.</div>
+
+
+
 </body>
 </html>
