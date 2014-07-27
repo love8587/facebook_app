@@ -38,6 +38,7 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Quiz App Test</title>
   <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -138,10 +139,10 @@ function testAPI() {
     <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Feat.drink.dress&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId=518851781580229" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;" allowTransparency="true"></iframe>
     -->
 <br />
+
+<h5> Click on above "Like" button to join this contest! </h5>
+
 <?php 
-
-echo 'Click on above “Like” button to join this contest!';
-
 } else { 
 
 $session = $helper->getSession();
