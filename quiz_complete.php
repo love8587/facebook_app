@@ -1,7 +1,7 @@
 <?php
 
 
-echo "your Score is 40";
-
-
+echo "<pre>";
+print_r( $_POST );
+echo "</pre>";
 ?>

@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 require_once('autoload.php');
 
 use Facebook\HttpClients\FacebookCurl;
@@ -25,35 +26,32 @@ use Facebook\Helpers\FacebookPageTabHelper;
  
 // start session
 session_start();
- 
+date_default_timezone_set('America/Los_Angeles');
+
 // init app with app id and secret
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
-$session = new FacebookSession($_GET['access_token'], $signedRequest);
+//$session = new FacebookSession($_POST['access_token'], $_POST['signed_request']);
 
+$session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
+$session->instantiateSignedRequest($_POST['signed_request']);
+
+print_r($session);
 
 if ($session != null) {
 	/* make the API call */
-	$request = new FacebookRequest(
-	  $session,
-	  'POST',
-	  '/me/feed',
-	  array (
-	    'message' => 'This is a test message',
-	  )
-	);
+	$request = new FacebookRequest($session->getSession(), 'GET', '/me');
+
 	$response = $request->execute();
 	$graphObject = $response->getGraphObject();
 	/* handle the result */
 
+echo "<pre>";
 	var_dump($graphObject);
 	
+	echo "</pre>";
 } 
-
-
-
-
 
 
 ?>

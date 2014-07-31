@@ -26,7 +26,8 @@ use Facebook\Helpers\FacebookPageTabHelper;
  
 // start session
 session_start();
- 
+date_default_timezone_set('America/Los_Angeles');
+
 // init app with app id and secret
 //FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
@@ -47,7 +48,7 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 <body>
 <div id="fb-root"></div>
 <script>
-var sToken;
+var sToken; var sSignReq;
 
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
@@ -61,7 +62,8 @@ function statusChangeCallback(response) {
     // Logged into your app and Facebook.
     //console.log(response.authResponse.accessToken);
 
-    sToken = response.authResponse.accessToken;
+    //sToken = response.authResponse.accessToken;
+    //sSignReq = response.authResponse.signedRequest;
 
     testAPI();
 
@@ -164,10 +166,9 @@ $graphObject = $response->getGraphObject();
 /* handle the result */
 
 $_SESSION['access_token'] = $session->getToken();
+$_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
 
-echo "<pre>";
-print_r($graphObject);
-echo "</pre>";
+
 ?>
 
 <div id="login_button_area">
@@ -182,13 +183,13 @@ echo "</pre>";
 
 <div id="status"> </div>
 
-<div id="quiz_body" style="display:none">
+<div id="quiz_body" style="display">
 
-<form id="quiz_form" role="form" action="quiz_complete.php">
+<form id="quiz_form" role="form" action="quiz_result.php" method="POST">
   <div class="form-group">
     <label class="form-control"> This is Quiz 1</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="quiz1_select_1" value="option1"> 1
+      <input type="radio" name="quiz1_answer" id="quiz1_select_1" value="option1" checked> 1
     </label>
     <label class="radio-inline">
       <input type="radio" name="quiz1_answer" id="quiz1_select_2" value="option2"> 2
@@ -200,7 +201,7 @@ echo "</pre>";
   <div class="form-group">
     <label class="form-control"> This is Quiz 2</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="quiz2_select_1" value="option1"> 1
+      <input type="radio" name="quiz2_answer" id="quiz2_select_1" value="option1" checked> 1
     </label>
     <label class="radio-inline">
       <input type="radio" name="quiz2_answer" id="quiz2_select_2" value="option2"> 2
@@ -212,7 +213,7 @@ echo "</pre>";
   <div class="form-group">
     <label class="form-control"> This is Quiz 3</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="quiz3_select_1" value="option1"> 1
+      <input type="radio" name="quiz3_answer" id="quiz3_select_1" value="option1" checked> 1
     </label>
     <label class="radio-inline">
       <input type="radio" name="quiz3_answer" id="quiz3_select_2" value="option2"> 2
@@ -224,7 +225,7 @@ echo "</pre>";
   <div class="form-group">
     <label class="form-control"> This is Quiz 4</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="quiz4_select_1" value="option1"> 1
+      <input type="radio" name="quiz4_answer" id="quiz4_select_1" value="option1" checked> 1
     </label>
     <label class="radio-inline">
       <input type="radio" name="quiz4_answer" id="quiz4_select_2" value="option2"> 2
@@ -236,7 +237,7 @@ echo "</pre>";
   <div class="form-group">
     <label class="form-control"> This is Quiz 5</label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="quiz5_select_1" value="option1"> 1
+      <input type="radio" name="quiz5_answer" id="quiz5_select_1" value="option1" checked> 1
     </label>
     <label class="radio-inline">
       <input type="radio" name="quiz5_answer" id="quiz5_select_2" value="option2"> 2
@@ -246,6 +247,7 @@ echo "</pre>";
     </label>
   </div>
   <input type="hidden" id="access_token" name="access_token" <?php echo 'value="'. $_SESSION['access_token'] .'"' ?>>
+  <input type="hidden" id="signed_request" name="signed_request" <?php echo 'value="'. $_SESSION['signed_request'] .'"' ?>>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
@@ -256,61 +258,31 @@ echo "</pre>";
 
 
 <script type="text/javascript">
+
 $(document).ready(function() {
 
 
-
-  $( "#quiz_form" ).submit(function( event ) {
+  // $( "#quiz_form" ).submit(function( event ) {
    
-    // Stop form from submitting normally
-    event.preventDefault();
+  //   // Stop form from submitting normally
+  //   event.preventDefault();
 
-    // Set Element for Validation
-    var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
+  //   // Set Element for Validation
+  //   var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
 
-    // Validate Element
-    for (index in aValidateElementName) {
-      var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
+  //   // Validate Element
+  //   for (index in aValidateElementName) {
+  //     var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
       
-      if (bIsChecked === false) { 
-        alert('You must select at least 1. Check your answer each Quiz'); 
-        return false; 
-      }
-    }
+  //     if (bIsChecked === false) { 
+  //       alert('You must select at least 1. Check your answer each Quiz'); 
+  //       return false; 
+  //     }
+  //   }
 
-    // Get some values from elements on the page:
-    var $form = $( this ),
-    url = $form.attr( "action" );
+  //   $(this).submit();
    
-    // Send the data using post
-    var posting = $.post( url, $( "#quiz_form" ).serialize() );
-   
-    // Put the results in a div
-    posting.done(function( data ) {
-      // location.href="/quiz_result.php?access_token=" + $('#access_token').val();
-
-      alert('your Score is 40');
-
-      FB.api('/me', function(response) {
-        
-        var url = 'https://graph.facebook.com/v2.0/me/feed?method=POST';
-        url += '&message='+response.name+'%20has%20participated%20in%20the%20contest!%20Hyperlink%20to%20this%20app.%20!%20%0A%0AJoin%20this%20contest%20and%20stand%20to%20win%20attractive%20prizes.&link=https://www.facebook.com/eat.drink.dress/app_518851781580229&format=json&suppress_http_code=1';
-        url += '&access_token=' + sToken;
-        
-        // Send the data using post
-        var publishing = $.post( url, {} );
-
-        // Put the results in a div
-        publishing.done(function( data ) {
-            alert('published post');
-        });
-
-      });
-
-    });
-
-   
-  });
+  // });
 
 });  
 
