@@ -1,27 +1,9 @@
 <?php 
 
 require_once('autoload.php');
-
-use Facebook\HttpClients\FacebookCurl;
-use Facebook\HttpClients\FacebookCurlHttpClient;
- 
-use Facebook\Entities\AccessToken;
-use Facebook\Entities\SignedRequest;
  
 use Facebook\FacebookSession;
-use Facebook\Helpers\FacebookRedirectLoginHelper;
-use Facebook\FacebookSignedRequestFromInputHelper; // added in v4.0.9
 use Facebook\FacebookRequest;
-use Facebook\FacebookResponse;
-use Facebook\FacebookSDKException;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookOtherException;
-use Facebook\FacebookAuthorizationException;
-use Facebook\GraphObject;
-use Facebook\GraphSessionInfo;
- 
-// these two classes required for canvas and tab apps
-use Facebook\Helpers\FacebookCanvasLoginHelper;
 use Facebook\Helpers\FacebookPageTabHelper;
  
 // start session
@@ -40,6 +22,9 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta property="og:url" content="http://samples.ogp.me/136756249803614" /> 
+  <meta property="og:title" content="Chocolate Pecan Pie" />
+  <meta property="og:description" content="This pie is delicious!" /> 
   <title>Quiz App Test</title>
   <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -48,30 +33,37 @@ $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20
 <body>
 <div id="fb-root"></div>
 <script>
+
 var sToken; var sSignReq;
+var _scope_require = 'public_profile,email,user_friends';
 
-// This is called with the results from from FB.getLoginStatus().
+
 function statusChangeCallback(response) {
-  //console.log('statusChangeCallback');
-  //console.log(response);
-  // The response object is returned with a status field that lets the
-  // app know the current login status of the person.
-  // Full docs on the response object can be found in the documentation
-  // for FB.getLoginStatus().
+
   if (response.status === 'connected') {
-    // Logged into your app and Facebook.
-    //console.log(response.authResponse.accessToken);
-
-    //sToken = response.authResponse.accessToken;
-    //sSignReq = response.authResponse.signedRequest;
-
-    testAPI();
+    
+    if (checkPermission() === true) {
+      $('#quiz_body').show();  
+    } else {
+        FB.login(function(response) {
+            top.location.href = 'https://www.facebook.com/eat.drink.dress/app_518851781580229';
+          },
+          {
+            scope: 'public_profile,email,user_friends',
+            auth_type: 'rerequest'
+          }
+        );
+    }
 
   } else if (response.status === 'not_authorized') {
+    //checkPermission();
+
     // The person is logged into Facebook, but not your app.
     document.getElementById('status').innerHTML = 'Please log ' +
-      'into this app.';
+      'into this app. you are not_authorized';
   } else {
+    //checkPermission();
+
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
     document.getElementById('status').innerHTML = 'Please log ' +
@@ -79,18 +71,34 @@ function statusChangeCallback(response) {
   }
 }       
 
-function checkLoginState() {
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-}
-
  window.fbAsyncInit = function() {
     FB.init({
       appId      : '518851781580229',
       xfbml      : true,
       version    : 'v2.0'
     });
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+    var obj=
+    {
+      method:'share',
+      href:'https://www.facebook.com/eat.drink.dress/app_518851781580229',
+      name:'this is name',
+      description:'this is description'
+    };
+
+    FB.ui(obj);
+
+  // FB.ui({
+  //   method: 'share_open_graph',
+  //   action_type: 'og.likes',
+  //   action_properties: JSON.stringify({
+  //       object:'https://www.facebook.com/eat.drink.dress/app_518851781580229'
+  //   })
+  // }, function(response){});
+
 
 };
 
@@ -102,35 +110,32 @@ function checkLoginState() {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
-  
-  // console.log('Welcome!  Fetching your information.... ');
 
+function checkPermission() {
 
-    FB.login(
-      function(response) {
-        // console.log(response);
-        // console.log('Successful login for: ' + response.name);
-  
-        FB.api('/me', function(response) {
-          document.getElementById('status').innerHTML =
-            'Thanks for logging in, ' + response.name + '!';
+  var bResult = true;
 
-          document.getElementById('login_button_area').innerHTML = '';
-          $('#quiz_body').show();
-        });
-
-      },
-      {
-        scope: 'public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions',
-        auth_type: 'rerequest'
-      }
-    );
-
-
+  FB.api('me/permissions', function(response_perm) {
     
+    var scopes=_scope_require.split(',');
+    var permissions=[];
+
+    for (var i in response_perm.data) {
+      permissions.push(response_perm.data[i]['permission']);
+    }
+
+    for (var i in scopes) {
+      var scope=scopes[i];
+      if (permissions.indexOf(scope) === -1) {
+        bResult = false;
+        break;
+      } else {
+        bResult = true;
+      }
+    }
+  });
+
+  return bResult;
 
 }
 
@@ -154,38 +159,30 @@ function testAPI() {
 
 $session = $helper->getSession();
 
-/* make the API call */
-$request = new FacebookRequest(
-  $session,
-  'GET',
-  '/me'
-);
+if ($session) {
+  /* make the API call */
+  $request = new FacebookRequest(
+    $session,
+    'GET',
+    '/me'
+  );
 
-$response = $request->execute();
-$graphObject = $response->getGraphObject();
-/* handle the result */
+  $response = $request->execute();
+  $graphObject = $response->getGraphObject();
+  /* handle the result */
 
-$_SESSION['access_token'] = $session->getToken();
-$_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
-
+  $_SESSION['access_token'] = $session->getToken();
+  $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();  
+}
 
 ?>
 
-<div id="login_button_area">
-    <fb:login-button scope="public_profile,email,user_likes,user_interests,user_videos,user_actions.books,publish_actions" onlogin="checkLoginState();">
-    Request Permission
-    </fb:login-button>
-</div>
-
-<?php
-
-} ?>
 
 <div id="status"> </div>
 
-<div id="quiz_body" style="display">
+<div id="quiz_body" style="display:none">
 
-<form id="quiz_form" role="form" action="quiz_result.php" method="POST">
+<form id="quiz_form" role="form" action="quiz_result.php">
   <div class="form-group">
     <label class="form-control"> This is Quiz 1</label>
     <label class="radio-inline">
@@ -253,6 +250,9 @@ $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest(
 
 </div>
 
+<?php
+
+} ?>
 
 
 
@@ -261,28 +261,24 @@ $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest(
 
 $(document).ready(function() {
 
-
-  // $( "#quiz_form" ).submit(function( event ) {
+  $( "#quiz_form" ).submit(function( event ) {
    
-  //   // Stop form from submitting normally
-  //   event.preventDefault();
+    // Set Element for Validation
+    var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
 
-  //   // Set Element for Validation
-  //   var aValidateElementName = ['quiz1_answer', 'quiz2_answer', 'quiz3_answer', 'quiz4_answer', 'quiz5_answer'];
-
-  //   // Validate Element
-  //   for (index in aValidateElementName) {
-  //     var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
+    // Validate Element
+    for (index in aValidateElementName) {
+      var bIsChecked = $('input[name='+ aValidateElementName[index] +']').is(':checked');
       
-  //     if (bIsChecked === false) { 
-  //       alert('You must select at least 1. Check your answer each Quiz'); 
-  //       return false; 
-  //     }
-  //   }
+      if (bIsChecked === false) { 
+        alert('You must select at least 1. Check your answer each Quiz'); 
+        return false; 
+      }
+    }
 
-  //   $(this).submit();
+    $(this).submit();
    
-  // });
+  });
 
 });  
 
