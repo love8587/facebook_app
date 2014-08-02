@@ -1,29 +1,12 @@
 <?php 
 
 require_once('autoload.php');
-
-use Facebook\HttpClients\FacebookCurl;
-use Facebook\HttpClients\FacebookCurlHttpClient;
- 
-use Facebook\Entities\AccessToken;
-use Facebook\Entities\SignedRequest;
  
 use Facebook\FacebookSession;
-use Facebook\Helpers\FacebookRedirectLoginHelper;
-use Facebook\FacebookSignedRequestFromInputHelper; // added in v4.0.9
 use Facebook\FacebookRequest;
-use Facebook\FacebookResponse;
-use Facebook\FacebookSDKException;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookOtherException;
-use Facebook\FacebookAuthorizationException;
-use Facebook\GraphObject;
-use Facebook\GraphSessionInfo;
- 
-// these two classes required for canvas and tab apps
-use Facebook\Helpers\FacebookCanvasLoginHelper;
 use Facebook\Helpers\FacebookPageTabHelper;
- 
+use Facebook\Helpers\FacebookCanvasLoginHelper;
+
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
@@ -37,7 +20,7 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 $session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 $session->instantiateSignedRequest($_POST['signed_request']);
 
-print_r($session);
+//print_r($session);
 
 if ($session != null) {
 	/* make the API call */
@@ -48,10 +31,52 @@ if ($session != null) {
 	/* handle the result */
 
 echo "<pre>";
-	var_dump($graphObject);
-	
-	echo "</pre>";
+print_r($_POST);
+print_r($graphObject);
+echo "</pre>";
 } 
 
 
 ?>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta property="og:url" content="http://samples.ogp.me/136756249803614" /> 
+  <meta property="og:title" content="Chocolate Pecan Pie" />
+  <meta property="og:description" content="This pie is delicious!" /> 
+  <title>Quiz App Test</title>
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>
+
+ window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '518851781580229',
+      xfbml      : true,
+      version    : 'v2.0'
+    });
+
+	// FB.ui({
+	//   method: 'share',
+	//   href: 'https://www.facebook.com/eat.drink.dress/app_518851781580229',
+	// }, function(response){});
+};
+
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=518851781580229&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+
+</script>

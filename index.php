@@ -5,6 +5,30 @@ require_once('autoload.php');
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
+
+
+phpinfo();
+exit;
+
+
+$dbh = new PDO('pgsql:host=localhost;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
+
+foreach($dbh->query('SELECT * from entries') as $row) {
+    print_r($row);
+}
+
+
+
+
+
+
+
+
+
+exit;
+
+
+
  
 // start session
 session_start();
@@ -81,24 +105,7 @@ function statusChangeCallback(response) {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
-    var obj=
-    {
-      method:'share',
-      href:'https://www.facebook.com/eat.drink.dress/app_518851781580229',
-      name:'this is name',
-      description:'this is description'
-    };
-
-    FB.ui(obj);
-
-  // FB.ui({
-  //   method: 'share_open_graph',
-  //   action_type: 'og.likes',
-  //   action_properties: JSON.stringify({
-  //       object:'https://www.facebook.com/eat.drink.dress/app_518851781580229'
-  //   })
-  // }, function(response){});
-
+    
 
 };
 
@@ -182,7 +189,7 @@ if ($session) {
 
 <div id="quiz_body" style="display:none">
 
-<form id="quiz_form" role="form" action="quiz_result.php">
+<form id="quiz_form" role="form" action="quiz_result.php" method="post">
   <div class="form-group">
     <label class="form-control"> This is Quiz 1</label>
     <label class="radio-inline">
