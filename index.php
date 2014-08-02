@@ -8,9 +8,10 @@ use Facebook\Helpers\FacebookPageTabHelper;
 
 
 
-$dbh = new PDO('pgsql:host=localhost;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
+$dbh = new PDO('pgsql:host=ec2-107-22-163-140.compute-1.amazonaws.com
+;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
 
-foreach($dbh->query('SELECT * from entries') as $row) {
+foreach($dbh->query('SELECT * from entries;') as $row) {
     print_r($row);
 }
 
