@@ -7,9 +7,6 @@ use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
 
 
-phpinfo();
-exit;
-
 
 $dbh = new PDO('pgsql:host=localhost;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
 
