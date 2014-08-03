@@ -67,13 +67,37 @@ function statusChangeCallback(response) {
     }
 
   } else if (response.status === 'not_authorized') {
-    //checkPermission();
+    
+    if (checkPermission() === true) {
+      $('#quiz_body').show();  
+    } else {
+        FB.login(function(response) {
+            top.location.href = 'https://www.facebook.com/eat.drink.dress/app_518851781580229';
+          },
+          {
+            scope: 'public_profile,email,user_friends',
+            auth_type: 'rerequest'
+          }
+        );
+    }
 
     // The person is logged into Facebook, but not your app.
     document.getElementById('status').innerHTML = 'Please log ' +
       'into this app. you are not_authorized';
   } else {
-    //checkPermission();
+    
+    if (checkPermission() === true) {
+      $('#quiz_body').show();  
+    } else {
+        FB.login(function(response) {
+            top.location.href = 'https://www.facebook.com/eat.drink.dress/app_518851781580229';
+          },
+          {
+            scope: 'public_profile,email,user_friends',
+            auth_type: 'rerequest'
+          }
+        );
+    }
 
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
@@ -156,56 +180,60 @@ if ($session) {
     '/me'
   );
 
+  // get user info from FacebookSDK
   $response = $request->execute();
   $graphObject = $response->getGraphObject();
   $aUserInfo = $graphObject->asArray();
 
   // insert user info to database 
   if ($aUserInfo['id']) {
-    
-    $oDB->beginTransaction();
 
-    $sql = 'INSERT INTO users
-        (user_id, first_name, last_name, name, email, gender, link, locale, timezone) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    try
+    { 
+      $oDB->beginTransaction();
 
-    $sth = $oDB->prepare($sql);
+      $sql = 'INSERT INTO users
+          (user_id, first_name, last_name, name, email, gender, link, locale, timezone) 
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    $sth->execute(array(
-            $aUserInfo['id'],
-            $aUserInfo['first_name'],
-            $aUserInfo['last_name'],
-            
-            $aUserInfo['name'],
-            $aUserInfo['email'],
-            $aUserInfo['gender'],
+      $sth = $oDB->prepare($sql);
 
-            $aUserInfo['link'],
-            $aUserInfo['locale'],
-            $aUserInfo['timezone'],
-        ));
+      $sth->execute(array(
+              $aUserInfo['id'],
+              $aUserInfo['first_name'],
+              $aUserInfo['last_name'],
+              
+              $aUserInfo['name'],
+              $aUserInfo['email'],
+              $aUserInfo['gender'],
 
-    $oDB->commit();
+              $aUserInfo['link'],
+              $aUserInfo['locale'],
+              $aUserInfo['timezone'],
+          ));
+
+      $oDB->commit();
+
+      // show all list that result of user
+      foreach($oDB->query("SELECT * from users WHERE user_id = '{$aUserInfo['id']}';") as $row) {
+          print $row['idx'] . "\t";
+          print $row['first_name'] . "\t";
+          print $row['last_name'] . "\t";
+          print $row['user_id'] . "\t";
+          print $row['name'] . "<br>";
+      }
+
+    } catch(Exception $e) { }
+
+    $_SESSION['access_token'] = $session->getToken();
+    $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
   }
-
-  // show all list that result of user
-  foreach($oDB->query("SELECT * from users WHERE user_id = '{$aUserInfo['id']}';") as $row) {
-      print $row['idx'] . "\t";
-      print $row['first_name'] . "\t";
-      print $row['last_name'] . "\t";
-      print $row['user_id'] . "\t";
-      print $row['name'] . "<br>";
-  }
-
-  $_SESSION['access_token'] = $session->getToken();
-  $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
-
 }
 
 ?>
 
 
-<div id="status"> </div>
+<div id="status"> Hello ! I remeber <?php echo $aUserInfo['name']; ?>. your Infomation saved.</div>
 
 <div id="quiz_body" style="display:none">
 
