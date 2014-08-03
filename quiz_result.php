@@ -7,6 +7,19 @@ use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
 use Facebook\Helpers\FacebookCanvasLoginHelper;
 
+
+
+
+$dbh = new PDO('pgsql:host=ec2-107-22-163-140.compute-1.amazonaws.com
+;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
+
+foreach($dbh->query('SELECT * from entries;') as $row) {
+    print_r($row);
+}
+
+
+
+
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
