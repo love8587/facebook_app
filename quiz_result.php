@@ -1,34 +1,25 @@
 <?php 
 
 require_once('autoload.php');
- 
+require_once('lib/libDB.php');
+
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
 use Facebook\Helpers\FacebookCanvasLoginHelper;
 
-
-
-
-$dbh = new PDO('pgsql:host=ec2-107-22-163-140.compute-1.amazonaws.com
-;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
+$dbh = libDB::getInstance();
 
 foreach($dbh->query('SELECT * from entries;') as $row) {
     print_r($row);
 }
-
-
-
 
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
 
 // init app with app id and secret
-//FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
-
-//$session = new FacebookSession($_POST['access_token'], $_POST['signed_request']);
 
 $session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 $session->instantiateSignedRequest($_POST['signed_request']);
@@ -47,7 +38,22 @@ echo "<pre>";
 print_r($_POST);
 print_r($graphObject);
 echo "</pre>";
+
+
+
+// check answer 
+
+
+// save point into database
+
+
+
+
+
 } 
+
+
+
 
 
 ?>

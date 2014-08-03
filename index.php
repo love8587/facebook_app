@@ -1,19 +1,14 @@
 <?php 
 
 require_once('autoload.php');
- 
+require_once('lib/libDB.php');
+
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
 
-if ($_SERVER['HTTP_HOST'] === 'localhost') {
-  $dbh = new PDO('pgsql:host=localhost
-  ;dbname=bhbaek', 'bhbaek', 'bhbaek0215()' ); 
-} else {  
-  $dbh = new PDO('pgsql:host=ec2-107-22-163-140.compute-1.amazonaws.com
-  ;dbname=d5vv35pml3jn0', 'iqmdjhbfmwyghb', 'fzflA6soqDp0KNPowwztJ_FxOr' ); 
-}
 
+$dbh = libDB::getInstance();
 
 foreach($dbh->query('SELECT * from entries;') as $row) {
     print_r($row);
