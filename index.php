@@ -151,7 +151,7 @@ $session = $helper->getSession();
 if ($session) {
   /* make the API call */
   $request = new FacebookRequest(
-    $session->getSession(),
+    $session,
     'GET',
     '/me'
   );
