@@ -148,12 +148,6 @@ function checkPermission() {
 
 $session = $helper->getSession();
 
-// init app with app id and secret
-FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
-
-$session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
-$session->instantiateSignedRequest($_POST['signed_request']);
-
 if ($session) {
   /* make the API call */
   $request = new FacebookRequest(
@@ -194,8 +188,6 @@ if ($session) {
     $oDB->commit();
   }
 
-
-
   // show all list that result of user
   foreach($oDB->query("SELECT * from users WHERE user_id = '{$aUserInfo['id']}';") as $row) {
       print $row['idx'] . "\t";
@@ -204,9 +196,6 @@ if ($session) {
       print $row['user_id'] . "\t";
       print $row['name'] . "<br>";
   }
-
-
-
 
   $_SESSION['access_token'] = $session->getToken();
   $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
