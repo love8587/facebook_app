@@ -129,7 +129,7 @@ if ($session != null) {
   <tbody>
 	<?php		
 		// show all list that result of user
-		foreach($oDB->query("SELECT * from entries, users WHERE entries.user_id = '{$aUserInfo['id']}';") as $row) {
+		foreach($oDB->query("SELECT e.* from entries, users WHERE entries.user_id = '{$aUserInfo['id']}';") as $row) {
 	?>
 	    <tr>
 	      <td><?php echo $row['idx']; ?></td>
