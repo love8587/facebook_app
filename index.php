@@ -14,7 +14,7 @@ foreach($dbh->query('SELECT * from entries;') as $row) {
     print_r($row);
 }
 
- 
+
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
@@ -138,7 +138,7 @@ function checkPermission() {
 <h2> Welcome! my Quiz Quiz page! </h2>
 
 
-<?php if ($helper->isLiked() === false) { ?>
+<?php if ($helper->isLiked() === false && $_SERVER['HTTP_HOST'] !== 'localhost') { ?>
    <!--
     <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Feat.drink.dress&amp;width&amp;layout=button&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=35&amp;appId=518851781580229" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:35px;" allowTransparency="true"></iframe>
     -->
@@ -245,8 +245,6 @@ if ($session) {
 <?php
 
 } ?>
-
-
 
 
 <script type="text/javascript">

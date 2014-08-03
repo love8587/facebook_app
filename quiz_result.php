@@ -2,6 +2,7 @@
 
 require_once('autoload.php');
 require_once('lib/libDB.php');
+require_once('lib/libQuestion.php');
 
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
@@ -24,7 +25,13 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 $session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 $session->instantiateSignedRequest($_POST['signed_request']);
 
-//print_r($session);
+
+// check answer 
+$oQuestion = new libQuestion();
+
+$aCheckedResult = $oQuestion->checkAnswer($_POST);
+
+$oQuestion->getPointFromCheckedAnswer($aCheckedResult);
 
 if ($session != null) {
 	/* make the API call */
@@ -34,22 +41,12 @@ if ($session != null) {
 	$graphObject = $response->getGraphObject();
 	/* handle the result */
 
-echo "<pre>";
-print_r($_POST);
-print_r($graphObject);
-echo "</pre>";
+	// check answer 
+	$oQuestion = new libQuestion();
 
+	$aCheckedResult = $oQuestion->checkAnswer($_POST);
 
-
-// check answer 
-
-
-// save point into database
-
-
-
-
-
+	$oQuestion->getPointFromCheckedAnswer($aCheckedResult);
 } 
 
 
