@@ -11,13 +11,6 @@ use Facebook\Helpers\FacebookCanvasLoginHelper;
 
 $oDB = libDB::getInstance();
 
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-
-$_POST['signed_request'] = 'CAAHX5Jgh1cUBAIC5ZBU61QY7qHNiuJ5skc770fNqGuofPTeaqZAT1HnJm2ZBkr5OsJUVwnJKWLRCqD8HibL1GkWhFhM6KJ8LRMfZAe7LVVadzULotulIFIVf4YRBLJsfXhC3PqR8XuLfa2vtvfRyVqQjeSTMyFILWpxNNg5ZBGQtBx5zrPy7oSUmLupncaXU2jxZAZCsoZCSxLBAOQXPrRPQCnmXJQGJfEMZD';
-$_POST['signed_request'] = 'TjTnstpnjdiNIflHfY_W7E_x1BZQrXcDmDpY967uRtA.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjE0MDcwNzgwMDAsImlzc3VlZF9hdCI6MTQwNzA3MjkzNSwib2F1dGhfdG9rZW4iOiJDQUFIWDVKZ2gxY1VCQU1NeVlqZ1FpYzlycm0yVmJ4MkxaQlpDZENmbk53ZVMwalpBRklVTzBDSUxDbUVpcFpDYmI2M25XS2U5eFpBNmwyZVJteUw3bE9xUkRTRG5ja1pDRHNsR2R1Mjhkaktub3AxQ2hveEhsVUhZYXBiVkxaQ0t4RzFvVjViSjlJT1d5cm5WQjd1QTVwaWpqbzh4TmExR0VGNkZsMTY5NnBwaVpDaVdLYzNWNG5PbGJuMWR4ZXozejljVk55ajhKUkN0c1pBWEEyQU1yTUxlSGtjMHFXUlhOa1pBc1pEIiwicGFnZSI6eyJpZCI6IjU4MzAyMDM5MTc3MzA0NCIsImxpa2VkIjp0cnVlLCJhZG1pbiI6dHJ1ZX0sInVzZXIiOnsiY291bnRyeSI6ImtyIiwibG9jYWxlIjoiZW5fVVMiLCJhZ2UiOnsibWluIjoyMX19LCJ1c2VyX2lkIjoiODE5NjI1OTUxMzg5MTA1In0';
-
-}
-
 // start session
 session_start();
 date_default_timezone_set('Japan');
@@ -28,18 +21,17 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 $session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 $session->instantiateSignedRequest($_POST['signed_request']);
 
-
 // check answer 
 $oQuestion = new libQuestion();
 $aCheckedResult = $oQuestion->checkAnswer($_POST);
 
 $iResultPoint = $oQuestion->getPointFromCheckedAnswer($aCheckedResult);
 
-
 if ($session != null) {
 	/* make the API call */
 	$request = new FacebookRequest($session->getSession(), 'GET', '/me');
 
+	// get user info
 	$response = $request->execute();
 	$graphObject = $response->getGraphObject();
 	$aUserInfo = $graphObject->asArray();
@@ -128,10 +120,11 @@ if ($session != null) {
   <tbody>
 	<?php		
 		// show all list that result of user
+		$idx = 0;
 		foreach($oDB->query("SELECT e.*, u.name from entries e, users u WHERE e.user_id = '{$aUserInfo['id']}';") as $row) {
 	?>
 	    <tr>
-	      <td><?php echo $row['idx']; ?></td>
+	      <td><?php echo $idx++; ?></td>
 	      <td><?php echo $row['name']; ?></td>
 	      <td><?php echo $row['result_point']; ?></td>
 	      <td><?php echo $row['ins_timestamp']; ?></td>

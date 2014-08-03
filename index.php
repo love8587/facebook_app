@@ -19,14 +19,6 @@ FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd
 
 $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
 
-
-if ($_SERVER['HTTP_HOST'] == 'localhost') {
-
-$_POST['signed_request'] = 'CAAHX5Jgh1cUBAIC5ZBU61QY7qHNiuJ5skc770fNqGuofPTeaqZAT1HnJm2ZBkr5OsJUVwnJKWLRCqD8HibL1GkWhFhM6KJ8LRMfZAe7LVVadzULotulIFIVf4YRBLJsfXhC3PqR8XuLfa2vtvfRyVqQjeSTMyFILWpxNNg5ZBGQtBx5zrPy7oSUmLupncaXU2jxZAZCsoZCSxLBAOQXPrRPQCnmXJQGJfEMZD';
-$_POST['signed_request'] = 'TjTnstpnjdiNIflHfY_W7E_x1BZQrXcDmDpY967uRtA.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjE0MDcwNzgwMDAsImlzc3VlZF9hdCI6MTQwNzA3MjkzNSwib2F1dGhfdG9rZW4iOiJDQUFIWDVKZ2gxY1VCQU1NeVlqZ1FpYzlycm0yVmJ4MkxaQlpDZENmbk53ZVMwalpBRklVTzBDSUxDbUVpcFpDYmI2M25XS2U5eFpBNmwyZVJteUw3bE9xUkRTRG5ja1pDRHNsR2R1Mjhkaktub3AxQ2hveEhsVUhZYXBiVkxaQ0t4RzFvVjViSjlJT1d5cm5WQjd1QTVwaWpqbzh4TmExR0VGNkZsMTY5NnBwaVpDaVdLYzNWNG5PbGJuMWR4ZXozejljVk55ajhKUkN0c1pBWEEyQU1yTUxlSGtjMHFXUlhOa1pBc1pEIiwicGFnZSI6eyJpZCI6IjU4MzAyMDM5MTc3MzA0NCIsImxpa2VkIjp0cnVlLCJhZG1pbiI6dHJ1ZX0sInVzZXIiOnsiY291bnRyeSI6ImtyIiwibG9jYWxlIjoiZW5fVVMiLCJhZ2UiOnsibWluIjoyMX19LCJ1c2VyX2lkIjoiODE5NjI1OTUxMzg5MTA1In0';
-
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -160,7 +152,7 @@ function checkPermission() {
 
 </script>
 
-
+<img src="/include/easy-quiz.gif"/>
 <h2> Welcome! Quiz Quiz page! </h2>
 
 <?php if ($helper->isLiked() === false && $_SERVER['HTTP_HOST'] !== 'localhost') { ?>
@@ -230,63 +222,63 @@ if ($session) {
 
 <form id="quiz_form" role="form" action="quiz_result.php" method="post">
   <div class="form-group">
-    <label class="form-control"> This is Quiz 1</label>
+    <label class="form-control">1. Choose the correct HTML tag for the largest heading </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="quiz1_select_1" value="option1" checked> 1
+      <input type="radio" name="quiz1_answer" id="quiz1_select_1" value="option1"> heading
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="quiz1_select_2" value="option2"> 2
+      <input type="radio" name="quiz1_answer" id="quiz1_select_2" value="option2"> header
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz1_answer" id="quiz1_select_3" value="option3"> 3
-    </label>
-  </div>
-  <div class="form-group">
-    <label class="form-control"> This is Quiz 2</label>
-    <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="quiz2_select_1" value="option1" checked> 1
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="quiz2_select_2" value="option2"> 2
-    </label>
-    <label class="radio-inline">
-      <input type="radio" name="quiz2_answer" id="quiz2_select_3" value="option3"> 3
+      <input type="radio" name="quiz1_answer" id="quiz1_select_3" value="option3"> head
     </label>
   </div>
   <div class="form-group">
-    <label class="form-control"> This is Quiz 3</label>
+    <label class="form-control">2. Choose the correct HTML tag to make a text bold </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="quiz3_select_1" value="option1" checked> 1
+      <input type="radio" name="quiz2_answer" id="quiz2_select_1" value="option1"> b
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="quiz3_select_2" value="option2"> 2
+      <input type="radio" name="quiz2_answer" id="quiz2_select_2" value="option2"> bold
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz3_answer" id="quiz3_select_3" value="option3"> 3
+      <input type="radio" name="quiz2_answer" id="quiz2_select_3" value="option3"> thick
+    </label>
+  </div>
+  <div class="form-group">
+    <label class="form-control">3. Choose the correct HTML tag to make a text italic </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz3_answer" id="quiz3_select_1" value="option1"> i
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz3_answer" id="quiz3_select_2" value="option2"> italic
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="quiz3_answer" id="quiz3_select_3" value="option3"> lean
     </label>
   </div>  
   <div class="form-group">
-    <label class="form-control"> This is Quiz 4</label>
+    <label class="form-control">4. What does HTML stand for? </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="quiz4_select_1" value="option1" checked> 1
+      <input type="radio" name="quiz4_answer" id="quiz4_select_1" value="option1"> Hyperlinks and Text Markup Language
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="quiz4_select_2" value="option2"> 2
+      <input type="radio" name="quiz4_answer" id="quiz4_select_2" value="option2"> Hyper Text Markup Language
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz4_answer" id="quiz4_select_3" value="option3"> 3
+      <input type="radio" name="quiz4_answer" id="quiz4_select_3" value="option3"> Home Tool Markup Language
     </label>
   </div>
   <div class="form-group">
-    <label class="form-control"> This is Quiz 5</label>
+    <label class="form-control">5. Who is making the Web standards? </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="quiz5_select_1" value="option1" checked> 1
+      <input type="radio" name="quiz5_answer" id="quiz5_select_1" value="option1"> Google
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="quiz5_select_2" value="option2"> 2
+      <input type="radio" name="quiz5_answer" id="quiz5_select_2" value="option2"> Mozilla
     </label>
     <label class="radio-inline">
-      <input type="radio" name="quiz5_answer" id="quiz5_select_3" value="option3"> 3
+      <input type="radio" name="quiz5_answer" id="quiz5_select_3" value="option3"> The World Wide Web Consortium
     </label>
   </div>
   <input type="hidden" id="access_token" name="access_token" <?php echo 'value="'. $_SESSION['access_token'] .'"' ?>>
