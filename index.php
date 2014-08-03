@@ -213,16 +213,7 @@ if ($session) {
           ));
 
       $oDB->commit();
-
-      // show all list that result of user
-      foreach($oDB->query("SELECT * from users WHERE user_id = '{$aUserInfo['id']}';") as $row) {
-          print $row['idx'] . "\t";
-          print $row['first_name'] . "\t";
-          print $row['last_name'] . "\t";
-          print $row['user_id'] . "\t";
-          print $row['name'] . "<br>";
-      }
-
+      
     } catch(Exception $e) { }
 
     $_SESSION['access_token'] = $session->getToken();

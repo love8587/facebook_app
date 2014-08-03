@@ -117,37 +117,31 @@ if ($session != null) {
 
 </script>
 
-
-
-
-
 <table class="table table-condensed">
   <thead>
     <tr>
       <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
       <th>Username</th>
+      <th>Result</th>
+      <th>Participate_time</th>
     </tr>
   </thead>
   <tbody>
 	<?php		
 		// show all list that result of user
-		foreach($oDB->query("SELECT * from entries WHERE user_id = '{$aUserInfo['id']}';") as $row) {
+		foreach($oDB->query("SELECT * from entries, users WHERE entries.user_id = '{$aUserInfo['id']}';") as $row) {
 	?>
 	    <tr>
 	      <td><?php echo $row['idx']; ?></td>
 	      <td><?php echo $row['user_id']; ?></td>
-	      <td><?php echo $row['ins_timestamp']; ?></td>
 	      <td><?php echo $row['result_point']; ?></td>
+	      <td><?php echo $row['ins_timestamp']; ?></td>
 	    </tr>
 	<?php
 		}
 	?>
   </tbody>
 </table>	
-
-
 
 </body>
 </html>
