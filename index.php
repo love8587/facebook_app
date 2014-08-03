@@ -137,7 +137,7 @@ function checkPermission() {
 </script>
 
 
-<h2> Welcome! my Quiz Quiz page! </h2>
+<h2> Welcome! Quiz Quiz page! </h2>
 
 <?php if ($helper->isLiked() === false && $_SERVER['HTTP_HOST'] !== 'localhost') { ?>
 
@@ -200,7 +200,6 @@ if ($session) {
   $_SESSION['access_token'] = $session->getToken();
   $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
 
-  print_r($_SESSION);  
 }
 
 ?>

@@ -51,41 +51,37 @@ if ($session != null) {
 
 	$iResultPoint = $oQuestion->getPointFromCheckedAnswer($aCheckedResult);
 
-
-	// insert result
 	if ($aUserInfo['id']) {
+		try 
+		{
+			// insert result to database
+			$oDB->beginTransaction();
+
+			$sql = 'INSERT INTO entries
+			    (user_id, result_point) VALUES (?, ?)';
+
+			$sth = $oDB->prepare($sql);
+
+			$sth->execute(array(
+			        $aUserInfo['id'],
+			        $iResultPoint,
+			    ));
+
+			$oDB->commit();
 		
-		$oDB->beginTransaction();
+			// show all list that result of user
+			foreach($oDB->query("SELECT * from entries WHERE user_id = '{$aUserInfo['id']}';") as $row) {
+			    print $row['idx'] . "\t";
+			    print $row['user_id'] . "\t";
+			    print $row['ins_timestamp'] . "\t";
+			    print $row['result_point'] . "<br>";
+			}
 
-		$sql = 'INSERT INTO entries
-		    (user_id, result_point) VALUES (?, ?)';
-
-		$sth = $oDB->prepare($sql);
-
-		$sth->execute(array(
-		        $aUserInfo['id'],
-		        $iResultPoint,
-		    ));
-
-		$oDB->commit();
+		} catch(Exception $e) {
+			// empty 
+		}
 	}
-
-
-	// show all list that result of user
-	foreach($oDB->query("SELECT * from entries WHERE user_id = '{$aUserInfo['id']}';") as $row) {
-	    print $row['idx'] . "\t";
-	    print $row['user_id'] . "\t";
-	    print $row['ins_timestamp'] . "\t";
-	    print $row['result_point'] . "<br>";
-	}
-
-
 } 
-
-
-
-
-
 ?>
 
 
@@ -113,10 +109,10 @@ if ($session != null) {
       version    : 'v2.0'
     });
 
-	// FB.ui({
-	//   method: 'share',
-	//   href: 'https://www.facebook.com/eat.drink.dress/app_518851781580229',
-	// }, function(response){});
+	FB.ui({
+	  method: 'share',
+	  href: 'https://www.facebook.com/eat.drink.dress/app_518851781580229',
+	}, function(response){});
 };
 
 (function(d, s, id) {
@@ -129,3 +125,5 @@ if ($session != null) {
 
 
 </script>
+</body>
+</html>
