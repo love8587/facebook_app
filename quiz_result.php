@@ -9,10 +9,13 @@ use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
 use Facebook\Helpers\FacebookCanvasLoginHelper;
 
-$dbh = libDB::getInstance();
+$oDB = libDB::getInstance();
 
-foreach($dbh->query('SELECT * from entries;') as $row) {
-    print_r($row);
+foreach($oDB->query('SELECT * from entries;') as $row) {
+    print $row['idx'] . "\t";
+    print $row['user_id'] . "\t";
+    print $row['ins_timestamp'] . "\t";
+    print $row['result_point'] . "\n";
 }
 
 // start session
@@ -31,7 +34,13 @@ $oQuestion = new libQuestion();
 
 $aCheckedResult = $oQuestion->checkAnswer($_POST);
 
-$oQuestion->getPointFromCheckedAnswer($aCheckedResult);
+$iResultPoint = $oQuestion->getPointFromCheckedAnswer($aCheckedResult);
+
+
+
+
+
+
 
 if ($session != null) {
 	/* make the API call */
@@ -41,12 +50,32 @@ if ($session != null) {
 	$graphObject = $response->getGraphObject();
 	/* handle the result */
 
+	echo '<pre>';
+	print_r($graphObject);
+	echo '</pre>';
+	
 	// check answer 
 	$oQuestion = new libQuestion();
 
 	$aCheckedResult = $oQuestion->checkAnswer($_POST);
 
-	$oQuestion->getPointFromCheckedAnswer($aCheckedResult);
+	$iResultPoint = $oQuestion->getPointFromCheckedAnswer($aCheckedResult);
+
+	$oDB = libDB::getInstance();
+
+	$oDB->beginTransaction();
+
+	$sql = 'INSERT INTO entries
+	    (user_id, result_point) VALUES (?, ?)';
+
+	$sth = $oDB->prepare($sql);
+
+	$sth->execute(array(
+	        $sUserID,
+	        $iResultPoint,
+	    ));
+
+	$oDB->commit();
 } 
 
 
