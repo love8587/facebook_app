@@ -11,12 +11,14 @@ use Facebook\Helpers\FacebookCanvasLoginHelper;
 
 $oDB = libDB::getInstance();
 
-foreach($oDB->query('SELECT * from entries;') as $row) {
-    print $row['idx'] . "\t";
-    print $row['user_id'] . "\t";
-    print $row['ins_timestamp'] . "\t";
-    print $row['result_point'] . "\n";
+
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+
+$_POST['signed_request'] = 'CAAHX5Jgh1cUBAIC5ZBU61QY7qHNiuJ5skc770fNqGuofPTeaqZAT1HnJm2ZBkr5OsJUVwnJKWLRCqD8HibL1GkWhFhM6KJ8LRMfZAe7LVVadzULotulIFIVf4YRBLJsfXhC3PqR8XuLfa2vtvfRyVqQjeSTMyFILWpxNNg5ZBGQtBx5zrPy7oSUmLupncaXU2jxZAZCsoZCSxLBAOQXPrRPQCnmXJQGJfEMZD';
+$_POST['signed_request'] = 'TjTnstpnjdiNIflHfY_W7E_x1BZQrXcDmDpY967uRtA.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjE0MDcwNzgwMDAsImlzc3VlZF9hdCI6MTQwNzA3MjkzNSwib2F1dGhfdG9rZW4iOiJDQUFIWDVKZ2gxY1VCQU1NeVlqZ1FpYzlycm0yVmJ4MkxaQlpDZENmbk53ZVMwalpBRklVTzBDSUxDbUVpcFpDYmI2M25XS2U5eFpBNmwyZVJteUw3bE9xUkRTRG5ja1pDRHNsR2R1Mjhkaktub3AxQ2hveEhsVUhZYXBiVkxaQ0t4RzFvVjViSjlJT1d5cm5WQjd1QTVwaWpqbzh4TmExR0VGNkZsMTY5NnBwaVpDaVdLYzNWNG5PbGJuMWR4ZXozejljVk55ajhKUkN0c1pBWEEyQU1yTUxlSGtjMHFXUlhOa1pBc1pEIiwicGFnZSI6eyJpZCI6IjU4MzAyMDM5MTc3MzA0NCIsImxpa2VkIjp0cnVlLCJhZG1pbiI6dHJ1ZX0sInVzZXIiOnsiY291bnRyeSI6ImtyIiwibG9jYWxlIjoiZW5fVVMiLCJhZ2UiOnsibWluIjoyMX19LCJ1c2VyX2lkIjoiODE5NjI1OTUxMzg5MTA1In0';
+
 }
+
 
 // start session
 session_start();
@@ -31,15 +33,9 @@ $session->instantiateSignedRequest($_POST['signed_request']);
 
 // check answer 
 $oQuestion = new libQuestion();
-
 $aCheckedResult = $oQuestion->checkAnswer($_POST);
 
 $iResultPoint = $oQuestion->getPointFromCheckedAnswer($aCheckedResult);
-
-
-
-
-
 
 
 if ($session != null) {
@@ -48,35 +44,44 @@ if ($session != null) {
 
 	$response = $request->execute();
 	$graphObject = $response->getGraphObject();
-	/* handle the result */
+	$aUserInfo = $graphObject->asArray();
 
-	echo '<pre>';
-	print_r($graphObject);
-	print_r($graphObject->getPropertyAsArray());
-	echo '</pre>';
 
 	// check answer 
 	$oQuestion = new libQuestion();
-
 	$aCheckedResult = $oQuestion->checkAnswer($_POST);
 
 	$iResultPoint = $oQuestion->getPointFromCheckedAnswer($aCheckedResult);
 
-	$oDB = libDB::getInstance();
 
-	$oDB->beginTransaction();
+	// insert result
+	if ($aUserInfo['id']) {
+		
+		$oDB->beginTransaction();
 
-	$sql = 'INSERT INTO entries
-	    (user_id, result_point) VALUES (?, ?)';
+		$sql = 'INSERT INTO entries
+		    (user_id, result_point) VALUES (?, ?)';
 
-	$sth = $oDB->prepare($sql);
+		$sth = $oDB->prepare($sql);
 
-	$sth->execute(array(
-	        $sUserID,
-	        $iResultPoint,
-	    ));
+		$sth->execute(array(
+		        $aUserInfo['id'],
+		        $iResultPoint,
+		    ));
 
-	$oDB->commit();
+		$oDB->commit();
+	}
+
+
+	// show all list that result of user
+	foreach($oDB->query("SELECT * from entries WHERE user_id = '{$aUserInfo['id']}';") as $row) {
+	    print $row['idx'] . "\t";
+	    print $row['user_id'] . "\t";
+	    print $row['ins_timestamp'] . "\t";
+	    print $row['result_point'] . "<br>";
+	}
+
+
 } 
 
 
