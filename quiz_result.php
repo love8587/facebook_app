@@ -133,7 +133,7 @@ if ($session != null) {
 	?>
 	    <tr>
 	      <td><?php echo $row['idx']; ?></td>
-	      <td><?php echo $row['user_id']; ?></td>
+	      <td><?php echo $row['name']; ?></td>
 	      <td><?php echo $row['result_point']; ?></td>
 	      <td><?php echo $row['ins_timestamp']; ?></td>
 	    </tr>
