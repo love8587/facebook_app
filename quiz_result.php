@@ -68,14 +68,6 @@ if ($session != null) {
 			    ));
 
 			$oDB->commit();
-		
-			// show all list that result of user
-			foreach($oDB->query("SELECT * from entries WHERE user_id = '{$aUserInfo['id']}';") as $row) {
-			    print $row['idx'] . "\t";
-			    print $row['user_id'] . "\t";
-			    print $row['ins_timestamp'] . "\t";
-			    print $row['result_point'] . "<br>";
-			}
 
 		} catch(Exception $e) {
 			// empty 
@@ -123,7 +115,39 @@ if ($session != null) {
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-
 </script>
+
+
+
+
+
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+	<?php		
+		// show all list that result of user
+		foreach($oDB->query("SELECT * from entries WHERE user_id = '{$aUserInfo['id']}';") as $row) {
+	?>
+	    <tr>
+	      <td><?php echo $row['idx']; ?></td>
+	      <td><?php echo $row['user_id']; ?></td>
+	      <td><?php echo $row['ins_timestamp']; ?></td>
+	      <td><?php echo $row['result_point']; ?></td>
+	    </tr>
+	<?php
+		}
+	?>
+  </tbody>
+</table>	
+
+
+
 </body>
 </html>
