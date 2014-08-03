@@ -12,7 +12,7 @@ $oDB = libDB::getInstance();
 
 // start session
 session_start();
-date_default_timezone_set('America/Los_Angeles');
+date_default_timezone_set('Japan');
 
 // init app with app id and secret
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
@@ -213,7 +213,7 @@ if ($session) {
           ));
 
       $oDB->commit();
-      
+
     } catch(Exception $e) { }
 
     $_SESSION['access_token'] = $session->getToken();
@@ -224,7 +224,7 @@ if ($session) {
 ?>
 
 
-<div id="status"> Hello ! I remeber <?php echo $aUserInfo['name']; ?>. your Infomation saved.</div>
+<div id="status"> Hello ! <?php echo $aUserInfo['name']; ?>. your Infomation saved.</div>
 
 <div id="quiz_body" style="display:none">
 

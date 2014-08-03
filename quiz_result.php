@@ -11,7 +11,6 @@ use Facebook\Helpers\FacebookCanvasLoginHelper;
 
 $oDB = libDB::getInstance();
 
-
 if ($_SERVER['HTTP_HOST'] == 'localhost') {
 
 $_POST['signed_request'] = 'CAAHX5Jgh1cUBAIC5ZBU61QY7qHNiuJ5skc770fNqGuofPTeaqZAT1HnJm2ZBkr5OsJUVwnJKWLRCqD8HibL1GkWhFhM6KJ8LRMfZAe7LVVadzULotulIFIVf4YRBLJsfXhC3PqR8XuLfa2vtvfRyVqQjeSTMyFILWpxNNg5ZBGQtBx5zrPy7oSUmLupncaXU2jxZAZCsoZCSxLBAOQXPrRPQCnmXJQGJfEMZD';
@@ -21,7 +20,7 @@ $_POST['signed_request'] = 'TjTnstpnjdiNIflHfY_W7E_x1BZQrXcDmDpY967uRtA.eyJhbGdv
 
 // start session
 session_start();
-date_default_timezone_set('America/Los_Angeles');
+date_default_timezone_set('Japan');
 
 // init app with app id and secret
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
@@ -129,7 +128,7 @@ if ($session != null) {
   <tbody>
 	<?php		
 		// show all list that result of user
-		foreach($oDB->query("SELECT entries.* from entries, users WHERE entries.user_id = '{$aUserInfo['id']}';") as $row) {
+		foreach($oDB->query("SELECT e.*, u.name from entries e, users u WHERE e.user_id = '{$aUserInfo['id']}';") as $row) {
 	?>
 	    <tr>
 	      <td><?php echo $row['idx']; ?></td>
