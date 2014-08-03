@@ -52,8 +52,9 @@ if ($session != null) {
 
 	echo '<pre>';
 	print_r($graphObject);
+	print_r($graphObject->getPropertyAsArray());
 	echo '</pre>';
-	
+
 	// check answer 
 	$oQuestion = new libQuestion();
 

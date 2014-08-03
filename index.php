@@ -7,14 +7,6 @@ use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
 
-
-$dbh = libDB::getInstance();
-
-foreach($dbh->query('SELECT * from entries;') as $row) {
-    print_r($row);
-}
-
-
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
@@ -164,7 +156,9 @@ if ($session) {
   /* handle the result */
 
   $_SESSION['access_token'] = $session->getToken();
-  $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();  
+  $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
+
+  print_r($_SESSION);  
 }
 
 ?>
