@@ -19,7 +19,6 @@ $_POST['signed_request'] = 'TjTnstpnjdiNIflHfY_W7E_x1BZQrXcDmDpY967uRtA.eyJhbGdv
 
 }
 
-
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
@@ -45,7 +44,6 @@ if ($session != null) {
 	$response = $request->execute();
 	$graphObject = $response->getGraphObject();
 	$aUserInfo = $graphObject->asArray();
-
 
 	// check answer 
 	$oQuestion = new libQuestion();

@@ -6,16 +6,26 @@ require_once('lib/libDB.php');
 use Facebook\FacebookSession;
 use Facebook\FacebookRequest;
 use Facebook\Helpers\FacebookPageTabHelper;
+use Facebook\Helpers\FacebookCanvasLoginHelper;
+
+$oDB = libDB::getInstance();
 
 // start session
 session_start();
 date_default_timezone_set('America/Los_Angeles');
 
 // init app with app id and secret
-//FacebookSession::setDefaultApplication( 'xxx','yyy' );
 FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
 
 $helper = new FacebookPageTabHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
+
+
+if ($_SERVER['HTTP_HOST'] == 'localhost') {
+
+$_POST['signed_request'] = 'CAAHX5Jgh1cUBAIC5ZBU61QY7qHNiuJ5skc770fNqGuofPTeaqZAT1HnJm2ZBkr5OsJUVwnJKWLRCqD8HibL1GkWhFhM6KJ8LRMfZAe7LVVadzULotulIFIVf4YRBLJsfXhC3PqR8XuLfa2vtvfRyVqQjeSTMyFILWpxNNg5ZBGQtBx5zrPy7oSUmLupncaXU2jxZAZCsoZCSxLBAOQXPrRPQCnmXJQGJfEMZD';
+$_POST['signed_request'] = 'TjTnstpnjdiNIflHfY_W7E_x1BZQrXcDmDpY967uRtA.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjE0MDcwNzgwMDAsImlzc3VlZF9hdCI6MTQwNzA3MjkzNSwib2F1dGhfdG9rZW4iOiJDQUFIWDVKZ2gxY1VCQU1NeVlqZ1FpYzlycm0yVmJ4MkxaQlpDZENmbk53ZVMwalpBRklVTzBDSUxDbUVpcFpDYmI2M25XS2U5eFpBNmwyZVJteUw3bE9xUkRTRG5ja1pDRHNsR2R1Mjhkaktub3AxQ2hveEhsVUhZYXBiVkxaQ0t4RzFvVjViSjlJT1d5cm5WQjd1QTVwaWpqbzh4TmExR0VGNkZsMTY5NnBwaVpDaVdLYzNWNG5PbGJuMWR4ZXozejljVk55ajhKUkN0c1pBWEEyQU1yTUxlSGtjMHFXUlhOa1pBc1pEIiwicGFnZSI6eyJpZCI6IjU4MzAyMDM5MTc3MzA0NCIsImxpa2VkIjp0cnVlLCJhZG1pbiI6dHJ1ZX0sInVzZXIiOnsiY291bnRyeSI6ImtyIiwibG9jYWxlIjoiZW5fVVMiLCJhZ2UiOnsibWluIjoyMX19LCJ1c2VyX2lkIjoiODE5NjI1OTUxMzg5MTA1In0';
+
+}
 
 ?>
 
@@ -138,17 +148,65 @@ function checkPermission() {
 
 $session = $helper->getSession();
 
+// init app with app id and secret
+FacebookSession::setDefaultApplication('518851781580229','4284499c6fb57d117268cd20931f0ff5');
+
+$session = new FacebookCanvasLoginHelper('518851781580229', '4284499c6fb57d117268cd20931f0ff5');
+$session->instantiateSignedRequest($_POST['signed_request']);
+
 if ($session) {
   /* make the API call */
   $request = new FacebookRequest(
-    $session,
+    $session->getSession(),
     'GET',
     '/me'
   );
 
   $response = $request->execute();
   $graphObject = $response->getGraphObject();
-  /* handle the result */
+  $aUserInfo = $graphObject->asArray();
+
+  // insert user info to database 
+  if ($aUserInfo['id']) {
+    
+    $oDB->beginTransaction();
+
+    $sql = 'INSERT INTO users
+        (user_id, first_name, last_name, name, email, gender, link, locale, timezone) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    $sth = $oDB->prepare($sql);
+
+    $sth->execute(array(
+            $aUserInfo['id'],
+            $aUserInfo['first_name'],
+            $aUserInfo['last_name'],
+            
+            $aUserInfo['name'],
+            $aUserInfo['email'],
+            $aUserInfo['gender'],
+
+            $aUserInfo['link'],
+            $aUserInfo['locale'],
+            $aUserInfo['timezone'],
+        ));
+
+    $oDB->commit();
+  }
+
+
+
+  // show all list that result of user
+  foreach($oDB->query("SELECT * from users WHERE user_id = '{$aUserInfo['id']}';") as $row) {
+      print $row['idx'] . "\t";
+      print $row['first_name'] . "\t";
+      print $row['last_name'] . "\t";
+      print $row['user_id'] . "\t";
+      print $row['name'] . "<br>";
+  }
+
+
+
 
   $_SESSION['access_token'] = $session->getToken();
   $_SESSION['signed_request'] = $session->getSignedRequest()->getRawSignedRequest();
